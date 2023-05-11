@@ -157,24 +157,43 @@
 					</template>
 				</n-switch>
 			</template>
+
+			<!--  滑动选择   -->
+			<template v-if="element.type === 'slider'">
+				<n-slider
+					v-model:value="element.options.defaultValue"
+					:min="element.options.min"
+					:max="element.options.max"
+					:step="element.options.step"
+					:range="element.options.range"
+					:vertical="element.options.vertical"
+					:reverse="element.options.reverse"
+					:disabled="element.options.disabled"
+					:style="{ width: element.options.width, height: element.options.height }"
+				/>
+			</template>
+
+			<template v-if="element.type === 'color'">
+				<n-color-picker
+					v-model:value="element.options.defaultValue"
+					:size="config.size"
+					:modes="element.options.modes"
+					:disabled="element.options.disabled"
+					:show-alpha="element.options.showAlpha"
+					:show-preview="element.options.showPreview"
+					:placement="element.options.placement"
+					:style="{ width: element.options.width }"
+				/>
+			</template>
 		</n-form-item>
 
 		<div class="widget-view-action" v-if="selectWidget?.key === element.key">
-			<!--			<n-icon size="20" @click.stop="$emit('copy')">-->
-			<!--				<Copy color="#ffffff"></Copy>-->
-			<!--			</n-icon>-->
-			<!--			<n-icon size="20" @click.stop="$emit('delete')">-->
-			<!--				<Delete16Regular color="#ffffff"></Delete16Regular>-->
-			<!--			</n-icon>-->
 			<SvgIcon iconClass="copy" @click.stop="$emit('copy')" />
 			<SvgIcon iconClass="delete" @click.stop="$emit('delete')" />
 		</div>
 
 		<div class="widget-view-drag" v-if="selectWidget?.key === element.key">
 			<SvgIcon iconClass="move" className="drag-widget" />
-			<!--			<n-icon size="20" className="drag-widget" class="drag-widget">-->
-			<!--				<MoveOutline color="#ffffff"></MoveOutline>-->
-			<!--			</n-icon>-->
 		</div>
 	</div>
 </template>

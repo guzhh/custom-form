@@ -162,7 +162,7 @@ export const basicComponents = [
 			change: "",
 			showLabel: true,
 			defaultValue: null,
-			width: "",
+			width: "100%",
 			placeholder: "请选择时间",
 			format: "HH:mm:ss",
 			valueFormat: "HH:mm:ss",
@@ -179,7 +179,7 @@ export const basicComponents = [
 			change: "",
 			showLabel: true,
 			defaultValue: null,
-			width: "",
+			width: "100%",
 			placeholder: "请选择日期",
 			format: "yyyy-MM-dd",
 			readonly: false,
@@ -210,7 +210,7 @@ export const basicComponents = [
 		options: {
 			change: "",
 			defaultValue: [],
-			width: "200px",
+			width: "100%",
 			placeholder: "请选择",
 			multiple: false,
 			remote: false,
@@ -289,7 +289,7 @@ export const basicComponents = [
 			showPreview: false,
 			placement: "bottom-start",
 			modes: ["hex"],
-			rules: getRules("number")
+			rules: getRules("string")
 		}
 	}
 ];

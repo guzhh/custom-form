@@ -5,7 +5,7 @@
   <a href="./LICENSE"><img allt="MIT License" src="https://badgen.net/badge/vite/^E4.3.2/green"/></a>
 </p>
 
-> 当前仓库主要是借鉴和抄袭了 `LvHuaiSheng` 大佬的 [naiveui-form-generate](https://gitee.com/sourcenet/naiveui-form-generate)，再次特别提出感谢
+> 当前仓库主要是借鉴和抄袭了 `LvHuaiSheng` 大佬的 [naiveui-form-generate](https://gitee.com/sourcenet/naiveui-form-generate)，在此特别提出感谢
 
 > 当前仓库主要包含两个组件，分别为表单设计器、表单渲染器
 > 

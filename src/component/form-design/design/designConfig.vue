@@ -62,6 +62,8 @@ import Date from "../configs/Date.vue";
 import Rate from "../configs/Rate.vue";
 import Select from "../configs/Select.vue";
 import Switch from "../configs/Switch.vue";
+import Slider from "../configs/Slider.vue";
+import Color from "../configs/Color.vue";
 import { checkComponent } from "../enums";
 
 const emits = defineEmits(["update:select"]);
@@ -80,7 +82,9 @@ const componentsMap = {
 	date: Date,
 	rate: Rate,
 	select: Select,
-	switch: Switch
+	switch: Switch,
+	slider: Slider,
+	color: Color
 };
 
 const data = ref(props.select);

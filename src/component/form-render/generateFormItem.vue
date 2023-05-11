@@ -170,6 +170,35 @@
 				</template>
 			</n-switch>
 		</template>
+
+		<!--  滑动选择   -->
+		<template v-if="element.type === 'slider'">
+			<n-slider
+				v-model:value="data"
+				:min="element.options.min"
+				:max="element.options.max"
+				:step="element.options.step"
+				:range="element.options.range"
+				:vertical="element.options.vertical"
+				:reverse="element.options.reverse"
+				:disabled="disabled || element.options.disabled"
+				:style="{ width: element.options.width, height: element.options.height }"
+			/>
+		</template>
+
+		<template v-if="element.type === 'color'">
+			<n-color-picker
+				v-model:value="data"
+				:size="config.size"
+				:modes="element.options.modes"
+				:disabled="disabled || element.options.disabled"
+				:show-alpha="element.options.showAlpha"
+				:show-preview="element.options.showPreview"
+				:placement="element.options.placement"
+				:style="{ width: element.options.width }"
+				@update:value="handleChange"
+			/>
+		</template>
 	</n-form-item>
 </template>
 
