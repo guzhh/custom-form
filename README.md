@@ -1,8 +1,17 @@
-# custom-form
+<p align="center">基于Vue3、Naive UI、JavaScript的表单生成器，支持常用组件</p>
+<p align="center">
+  <a href="./LICENSE"><img allt="MIT License" src="https://badgen.net/badge/naive-ui/^2.34.3/green"/></a>
+  <a href="./LICENSE"><img allt="MIT License" src="https://badgen.net/badge/vue/^3.2.47/green"/></a>
+  <a href="./LICENSE"><img allt="MIT License" src="https://badgen.net/badge/vite/^E4.3.2/green"/></a>
+</p>
 
-> 一个基于Vue、Naive UI的自定义表单
-> 表单设计器 custom-form-design
-> 表单渲染器 custom-form-render
+> 当前仓库主要是借鉴和抄袭了 `LvHuaiSheng` 大佬的 [naiveui-form-generate](https://gitee.com/sourcenet/naiveui-form-generate)，再次特别提出感谢
+
+> 当前仓库主要包含两个组件，分别为表单设计器、表单渲染器
+> 
+> 表单设计器 form-design
+> 
+> 表单渲染器 form-render
 
 ### 版本格式
 
@@ -27,6 +36,3 @@ state – 版本状态，可选字段，可选值包括以下几种
 + 在发布重要版本时，可以先发布alpha，beta，rc等先行版本，先行版本版本状态是以 .
   分隔的标识符，由数字字母组成，alpha、beta、rc后需要带上次数信息，比如1.0.0-alpha.1
 + 某个软件版本发行后，后续修改都必须以新版本发行
-
----
-原文链接：https://blog.csdn.net/Corazhang/article/details/111875879
