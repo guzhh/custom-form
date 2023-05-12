@@ -20,7 +20,7 @@ export default defineConfig({
 				}
 			],
 			eslintrc: {
-				enabled: false, // 默认false, true启用。生成一次就可以，避免每次工程启动都生成
+				enabled: true, // 默认false, true启用。生成一次就可以，避免每次工程启动都生成
 				filepath: "./.eslintrc-auto-import.json", // 生成json文件
 				globalsPropValue: true
 			},
@@ -41,6 +41,10 @@ export default defineConfig({
 			"@": fileURLToPath(new URL("./src", import.meta.url))
 		}
 	},
+	server: {
+		host: "0.0.0.0",
+		port: 8888
+	},
 	build: {
 		// 到处文件目录，penk-ui 用于存放package.json，避免被覆盖
 		// 这里不设置也是默认dist
@@ -53,18 +57,20 @@ export default defineConfig({
 			name: "CustomForm",
 			// 将添加适当的扩展名
 			// 如果不用format文件后缀可能会乱
-			fileName: format => `custom-form.${format}.js`,
-			// 导出模块格式
-			formats: ["es", "umd", "iife"]
+			fileName: format => `custom-form.${format}.js`
+			// // 导出模块格式
+			// formats: ["es", "umd", "iife"]
 		},
+		sourcemap: true, // 输出.map文件
 		rollupOptions: {
 			// 确保外部化处理那些你不想打包进库的依赖
-			external: ["vue", "naive-ui"],
+			external: ["vue", "naive-ui", "vuedraggable"],
 			output: {
 				// 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
 				globals: {
 					vue: "Vue",
-					"naive-ui": "naive"
+					"naive-ui": "naive",
+					vuedraggable: "vuedraggable"
 				}
 			}
 		}

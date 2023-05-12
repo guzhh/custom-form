@@ -38,7 +38,7 @@ const data = ref(props.select);
 watch(
 	() => props.select,
 	val => {
-		data.value = value;
+		data.value = val;
 	}
 );
 watch(data, val => {

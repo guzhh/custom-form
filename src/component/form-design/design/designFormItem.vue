@@ -199,7 +199,6 @@
 </template>
 
 <script>
-import { ref } from "vue";
 import { useThemeVars } from "naive-ui";
 import SvgIcon from "@/component/svg-icon/index.vue";
 

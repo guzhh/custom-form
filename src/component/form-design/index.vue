@@ -23,7 +23,7 @@
 			:segmented="{ content: true }"
 		>
 			<template #header-extra>
-				<n-button text @click="handleGenerateJson"> 生成JSON</n-button>
+				<n-button text @click="handleGenerateJson"> {{ saveText ? saveText : "生成JSON" }} </n-button>
 				<n-button text @click="exportJSON" style="margin-left: 20px"> 导出JSON</n-button>
 				<n-button text @click="previewTheForm" style="margin-left: 20px"> 预览表单</n-button>
 			</template>
@@ -50,6 +50,7 @@
 </template>
 
 <script setup>
+import { merge } from "lodash";
 import { naiveui } from "@/config";
 import ComponentGroup from "./components/componentGroup.vue";
 import FormConfig from "./components/formConfig.vue";
@@ -60,7 +61,17 @@ import FormPreview from "./modal/formPreview.vue";
 
 defineOptions({ name: "FormDesign" });
 
-const message = useMessage();
+const emits = defineEmits(["ok"]);
+
+const props = defineProps({
+	widgetFormJson: {
+		type: Object,
+		required: false
+	},
+	saveText: {
+		type: String
+	}
+});
 // 基础组件
 const basicFields = ["input", "number", "radio", "checkbox", "time", "date", "rate", "select", "switch", "slider", "color"];
 // 布局组件
@@ -76,10 +87,40 @@ const state = reactive({
 	widgetFormSelect: undefined // 当前选中的表单项配置
 });
 
+const setJson = json => {
+	state.widgetForm.list = [];
+	merge(state.widgetForm, json);
+	if (json.list.length) {
+		// eslint-disable-next-line prefer-destructuring
+		state.widgetFormSelect = json.list[0];
+	}
+};
+
+const getJson = () => state.widgetForm;
+
+/**
+ * json导入
+ * @param jsonEg
+ */
+const handleUploadJson = jsonEg => {
+	try {
+		setJson(JSON.parse(jsonEg));
+	} catch (e) {
+		throw new Error("传入的json表单数据有问题，请检查");
+	}
+};
+
+onMounted(() => {
+	if (props.widgetFormJson && props.widgetFormJson !== "") {
+		handleUploadJson(props.widgetFormJson);
+	}
+});
+
 // 生成json
 const handleGenerateJson = () => {
-	console.log(JSON.stringify(state.widgetForm, null, 2));
-	message.info("生成的json已打印到控制台请在控制台查看");
+	// console.log(JSON.stringify(state.widgetForm, null, 2));
+	// message.info("生成的json已打印到控制台请在控制台查看");
+	emits("ok", state.widgetForm);
 };
 // 导出JSON
 const exportJSON = () => {
@@ -95,6 +136,8 @@ const exportJSON = () => {
 const previewTheForm = () => {
 	formPreviewRef.value.open(JSON.parse(JSON.stringify(state.widgetForm)));
 };
+
+defineExpose({ getJson });
 </script>
 
 <style scoped></style>

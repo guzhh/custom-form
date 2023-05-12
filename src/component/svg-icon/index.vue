@@ -6,8 +6,6 @@
 </template>
 
 <script lang="ts">
-import { computed } from "vue";
-
 function isExternalStr(path) {
 	return /^(https?:|mailto:|tel:)/.test(path);
 }
