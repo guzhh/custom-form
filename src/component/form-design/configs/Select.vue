@@ -94,7 +94,7 @@ const handleSelectModeChange = value => {
 		data.value.options.rules.type = "string";
 		// 判断是否默认值是否有length属性，如果有则默认值区第一个，如果没有则设为null
 		// eslint-disable-next-line no-unused-expressions
-		data.value.options.defaultValue.length
+		data.value.options.defaultValue?.length
 			? // eslint-disable-next-line prefer-destructuring
 			  (data.value.options.defaultValue = data.value.options.defaultValue[0])
 			: (data.value.options.defaultValue = null);

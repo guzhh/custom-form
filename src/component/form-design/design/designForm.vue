@@ -158,6 +158,25 @@ const handleMoveAdd = event => {
 	// // 对数据进行格式化, 为数据插入 key 和 model 以及 rules 校验规则集合
 	list[newIndex] = { ...list[newIndex], key, model: `${list[newIndex].type}_${key}`, rules: [] };
 
+	if (list[newIndex].type === "radio" || list[newIndex].type === "checkbox" || list[newIndex].type === "select") {
+		list[newIndex] = {
+			...list[newIndex],
+			options: {
+				...list[newIndex].options,
+				options: list[newIndex].options.options.map(item => ({
+					...item
+				}))
+			}
+		};
+	}
+
+	if (list[newIndex].type === "grid") {
+		list[newIndex] = {
+			...list[newIndex],
+			columns: list[newIndex].columns.map(item => ({ ...item }))
+		};
+	}
+
 	// 更新表单json串
 	emits("update:widgetForm", { ...props.widgetForm, list });
 	// 更新当前选中的表单项，
@@ -249,6 +268,20 @@ const handleColMoveAdd = (event, row, index) => {
 			model: `${row.columns[index].list[newIndex].type}_${key}`,
 			rules: [] // 校验规则
 		};
+
+		if (
+			row.columns[index].list[newIndex].type === "radio" ||
+			row.columns[index].list[newIndex].type === "checkbox" ||
+			row.columns[index].list[newIndex].type === "select"
+		) {
+			row.columns[index].list[newIndex] = {
+				...row.columns[index].list[newIndex],
+				options: {
+					...row.columns[index].list[newIndex].options,
+					options: row.columns[index].list[newIndex].options.options.map(option => ({ ...option }))
+				}
+			};
+		}
 		// 将选中的项切换为当前项
 		emits("update:widgetFormSelect", row.columns[index].list[newIndex]);
 	}
@@ -259,6 +292,7 @@ const handleColMoveAdd = (event, row, index) => {
  * @param row 当前点击的元素信息
  */
 const handleItemClick = row => {
+	console.log("-----------", row);
 	emits("update:widgetFormSelect", row);
 };
 

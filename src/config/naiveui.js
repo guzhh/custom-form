@@ -43,6 +43,18 @@ export const widgetForm = {
 	}
 };
 
+const rules = {
+	trigger: "blur",
+	enum: "",
+	len: undefined,
+	max: undefined,
+	message: "",
+	min: undefined,
+	pattern: "",
+	required: false,
+	type: "any" // 类型为any的时候，input空字符也将校验通过
+};
+
 // 基础组件
 export const basicComponents = [
 	{
@@ -290,6 +302,101 @@ export const basicComponents = [
 			placement: "bottom-start",
 			modes: ["hex"],
 			rules: getRules("string")
+		}
+	}
+];
+
+export const advanceComponents = [
+	{
+		label: "上传",
+		type: "upload",
+		options: {
+			showLabel: true, // 是否显示标题
+			defaultValue: [], // 默认值
+			defaultUpload: true, // 选择文件时候是否默认上传
+			directory: false, // 	是否支持目录上传（在文件选框中只能选择目录）
+			directoryDnd: false, // 是否支持目录拖拽上传（如果不设定会默认跟随 directory）
+			showDownloadButton: false, // 是否显示下载按钮（在 finished 后展示）
+			showFileList: true, // 	是否显示文件列表
+			showRetryButton: true, // 是否显示重新上传按钮（在 error 时展示）
+			showRemoveButton: true, // 是否显示删除按钮（在 finished 后时候展示），点击删除按钮会触发 on-remove 回调
+			showCancelButton: true, // 是否显示取消按钮（在 pending、uploading、error 的时候展示），点击取消按钮会触发 on-remove 回调
+			showPreviewButton: true, // 是否允许显示预览按钮（在 list-type 为 image-card 时生效）
+			name: "file", // 文件在提交表单中的字段名
+			action: "http://example.com/upload", // 请求提交的地址
+			method: "post", // HTTP 请求的方法
+			listType: "text", // 文件列表的内建样式，text、image 和 image-card
+			accept: "image/*", // 接受的文件类型，参考 accept
+			maxCount: 3, // 限制上传文件数量
+			multiple: false, // 是否支持多个文件
+			disabled: false, // 	是否禁用
+			rules
+		}
+	}
+];
+
+// 其他组件
+export const otherComponents = [
+	{
+		type: "text",
+		label: "文字",
+		options: {
+			showLabel: false,
+			text: "文字",
+			style: {
+				width: "100%",
+				height: "",
+				textAlign: "center",
+				fontWeight: "400",
+				fontSize: "20px",
+				lineHeight: "1.5"
+			}
+		}
+	},
+	{
+		type: "divider",
+		label: "分割线",
+		options: {
+			showLabel: false,
+			text: "分割线",
+			dashed: false,
+			titlePlacement: "center",
+			vertical: false
+		}
+	},
+	{
+		label: "警告信息",
+		type: "alert",
+		options: {
+			showLabel: false,
+			title: "This is a alert",
+			content: "This is a alert",
+			type: "default",
+			width: "",
+			height: "",
+			showIcon: true,
+			closable: false
+		}
+	},
+	{
+		label: "按钮",
+		type: "button",
+		options: {
+			showLabel: false,
+			text: "按钮",
+			type: "default",
+			width: "",
+			height: "",
+			block: false,
+			bordered: true,
+			dashed: false,
+			circle: false,
+			ghost: false,
+			strong: false,
+			textBtn: false,
+			color: null,
+			textColor: null,
+			loading: false
 		}
 	}
 ];

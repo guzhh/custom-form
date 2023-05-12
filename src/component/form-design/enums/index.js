@@ -10,19 +10,19 @@ export const ComponentType = {
 	Switch: "switch",
 	Slider: "slider",
 	Color: "color",
-	// // 高级组件
-	// Upload: "upload",
+	// 高级组件
+	Upload: "upload",
 	// RichtextEditor: "richtext-editor",
 	// Cascader: "cascader",
 	// Tree: "tree",
 	// Table: "table",
-	Grid: "grid"
+	Grid: "grid",
 	// DynamicTable: "dynamicTable",
 	// SelectTree: "selectTree",
 	// Transfer: "transfer",
-	// Alert: "alert",
-	// Text: "text",
-	// Divider: "divider",
+	Alert: "alert",
+	Text: "text",
+	Divider: "divider"
 	// DynamicTags: "dynamicTags",
 	// Button: "button"
 };

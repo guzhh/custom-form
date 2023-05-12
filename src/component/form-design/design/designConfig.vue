@@ -64,6 +64,10 @@ import Select from "../configs/Select.vue";
 import Switch from "../configs/Switch.vue";
 import Slider from "../configs/Slider.vue";
 import Color from "../configs/Color.vue";
+import Upload from "../configs/Upload.vue";
+import Text from "../configs/Text.vue";
+import Divider from "../configs/Divider.vue";
+import Alert from "../configs/Alert.vue";
 import { checkComponent } from "../enums";
 
 const emits = defineEmits(["update:select"]);
@@ -84,7 +88,11 @@ const componentsMap = {
 	select: Select,
 	switch: Switch,
 	slider: Slider,
-	color: Color
+	color: Color,
+	upload: Upload,
+	text: Text,
+	divider: Divider,
+	alert: Alert
 };
 
 const data = ref(props.select);

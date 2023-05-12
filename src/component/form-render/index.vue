@@ -70,7 +70,9 @@ const props = defineProps({
 const message = useMessage();
 const generateForm = ref();
 const formJson = (props.data && JSON.parse(JSON.stringify(props.data))) ?? naiveui.widgetForm;
+// 将 naiveui.widgetForm 上的函数放入 formJson上，因为formJson被json化后方法消失了
 Object.keys(naiveui.widgetForm).forEach(key => {
+	// 判断当前方法是否有，并且是函数
 	if (naiveui.widgetForm.hasOwnProperty.call(key) && typeof naiveui.widgetForm[key] === "function") {
 		formJson[key] = naiveui.widgetForm[key];
 	}
@@ -155,10 +157,17 @@ onMounted(() => {
 	generateOptions(state.widgetForm?.list ?? []);
 });
 
+/**
+ * 重置表单
+ */
 const reset = () => {
 	generateForm.value?.restoreValidation();
 };
 
+/**
+ * 校验表单并获取表单填写的值
+ * @returns {Promise<unknown>}
+ */
 const getData = () => {
 	return new Promise((resolve, reject) => {
 		generateForm.value
@@ -167,7 +176,7 @@ const getData = () => {
 				if (!errors) {
 					resolve(state.model);
 				} else {
-					message.error("验证失败");
+					reject(new Error("验证失败"));
 				}
 			})
 			.catch(error => {
@@ -175,7 +184,48 @@ const getData = () => {
 			});
 	});
 };
-defineExpose({ getData, reset });
+
+const setWidgetFormData = list => {
+	for (let index = 0; index < list.length; index++) {
+		const { model } = list[index];
+		// 判断是否存在绑定key
+		if (!model) {
+			return;
+		}
+		// 判断是否是否是栅格组件
+		if (list[index].type === "grid") {
+			// 如果是则递归调用
+			list[index].columns.forEach(col => generateModel(col.list));
+		} else {
+			// eslint-disable-next-line no-param-reassign
+			list[index].options.defaultValue = state.model[model];
+		}
+	}
+};
+
+/**
+ * 获取整个表单渲染json,并且包含填写的值
+ * @returns {Promise<unknown>}
+ */
+const getWidgetFormData = () => {
+	return new Promise((resolve, reject) => {
+		generateForm.value
+			?.validate(errors => {
+				console.log("errors=", errors);
+				if (!errors) {
+					setWidgetFormData(state.widgetForm?.list ?? []);
+					resolve(JSON.stringify(state.widgetForm));
+				} else {
+					reject(new Error("验证失败"));
+				}
+			})
+			.catch(error => {
+				reject(error);
+			});
+	});
+};
+
+defineExpose({ getData, reset, getWidgetFormData });
 </script>
 
 <style scoped></style>

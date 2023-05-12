@@ -186,6 +186,7 @@
 			/>
 		</template>
 
+		<!--  颜色选择  -->
 		<template v-if="element.type === 'color'">
 			<n-color-picker
 				v-model:value="data"
@@ -198,6 +199,63 @@
 				:style="{ width: element.options.width }"
 				@update:value="handleChange"
 			/>
+		</template>
+
+		<template v-if="element.type === 'upload'">
+			<n-upload
+				:name="element.options.file"
+				:action="element.options.action"
+				:accept="element.options.accept"
+				:max="element.options.maxCount"
+				:defaultUpload="element.options.defaultUpload"
+				:directory="element.options.directory"
+				:directoryDnd="element.options.directoryDnd"
+				:showDownloadButton="element.options.showDownloadButton"
+				:showFileList="element.options.showFileList"
+				:showRetryButton="element.options.showRetryButton"
+				:showRemoveButton="element.options.showRemoveButton"
+				:showCancelButton="element.options.showCancelButton"
+				:showPreviewButton="element.options.showPreviewButton"
+				:file-list="data"
+				:listType="element.options.listType"
+				:multiple="element.options.multiple"
+				:disabled="disabled || element.options.disabled"
+				@change="handleUploadChange"
+			>
+				<SvgIcon v-if="element.options.listType === 'image-card'" iconClass="insert" />
+				<n-button v-else>
+					<SvgIcon iconClass="img-upload" style="margin-right: 10px" />
+					点击上传
+				</n-button>
+			</n-upload>
+		</template>
+
+		<template v-if="element.type === 'text'">
+			<div :style="element.options.style">
+				<span>{{ element.options.text }}</span>
+			</div>
+		</template>
+
+		<template v-if="element.type === 'divider'">
+			{{ element.options.vertical ? element.options.text : "" }}
+			<n-divider
+				:dashed="element.options.dashed"
+				:title-placement="element.options.titlePlacement"
+				:vertical="element.options.vertical"
+			>
+				{{ element.options.text }}
+			</n-divider>
+		</template>
+		<template v-if="element.type === 'alert'">
+			<n-alert
+				:title="element.options.title"
+				:type="element.options.type"
+				:showIcon="element.options.showIcon"
+				:closable="element.options.closable"
+				:style="{ width: element.options.width, height: element.options.height }"
+			>
+				{{ element.options.content }}
+			</n-alert>
 		</template>
 	</n-form-item>
 </template>
@@ -241,7 +299,10 @@ export default {
 		const handleChange = event => {
 			console.log("------------", event);
 		};
-		return { data, handleChange, handleFilterOption };
+		const handleUploadChange = ({ fileList }) => {
+			data.value = fileList;
+		};
+		return { data, handleChange, handleFilterOption, handleUploadChange };
 	}
 };
 </script>

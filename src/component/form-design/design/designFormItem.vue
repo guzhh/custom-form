@@ -185,6 +185,66 @@
 					:style="{ width: element.options.width }"
 				/>
 			</template>
+
+			<!--   文件上传   -->
+			<template v-if="element.type === 'upload'">
+				<n-upload
+					:name="element.options.file"
+					:action="element.options.action"
+					:accept="element.options.accept"
+					:max="element.options.maxCount"
+					:defaultUpload="element.options.defaultUpload"
+					:directory="element.options.directory"
+					:directoryDnd="element.options.directoryDnd"
+					:showDownloadButton="element.options.showDownloadButton"
+					:showFileList="element.options.showFileList"
+					:showRetryButton="element.options.showRetryButton"
+					:showRemoveButton="element.options.showRemoveButton"
+					:showCancelButton="element.options.showCancelButton"
+					:showPreviewButton="element.options.showPreviewButton"
+					:file-list="element.options.defaultValue"
+					:listType="element.options.listType"
+					:multiple="element.options.multiple"
+					:disabled="element.options.disabled"
+				>
+					<SvgIcon v-if="element.options.listType === 'image-card'" iconClass="insert" />
+					<n-button v-else>
+						<SvgIcon iconClass="img-upload" style="margin-right: 10px" />
+						点击上传
+					</n-button>
+				</n-upload>
+			</template>
+
+			<!--  文字    -->
+			<template v-if="element.type === 'text'">
+				<div :style="element.options.style">
+					<span>{{ element.options.text }}</span>
+				</div>
+			</template>
+
+			<!--   分割线   -->
+			<template v-if="element.type === 'divider'">
+				{{ element.options.vertical ? element.options.text : "" }}
+				<n-divider
+					:dashed="element.options.dashed"
+					:title-placement="element.options.titlePlacement"
+					:vertical="element.options.vertical"
+				>
+					{{ element.options.text }}
+				</n-divider>
+			</template>
+			<!--   提示   -->
+			<template v-if="element.type === 'alert'">
+				<n-alert
+					:title="element.options.title"
+					:type="element.options.type"
+					:showIcon="element.options.showIcon"
+					:closable="element.options.closable"
+					:style="{ width: element.options.width, height: element.options.height }"
+				>
+					{{ element.options.content }}
+				</n-alert>
+			</template>
 		</n-form-item>
 
 		<div class="widget-view-action" v-if="selectWidget?.key === element.key">

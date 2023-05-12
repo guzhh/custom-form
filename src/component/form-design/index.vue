@@ -11,7 +11,9 @@
 		>
 			<n-scrollbar>
 				<component-group title="基础组件" :fields="basicFields" :list="naiveui.basicComponents" />
+				<ComponentGroup title="高级组件" :fields="advanceFields" :list="naiveui.advanceComponents" />
 				<ComponentGroup title="布局组件" :fields="layoutFields" :list="naiveui.layoutComponents" />
+				<ComponentGroup title="其他组件" :fields="otherFields" :list="naiveui.otherComponents" />
 			</n-scrollbar>
 		</n-card>
 		<n-card
@@ -24,8 +26,8 @@
 		>
 			<template #header-extra>
 				<n-button text @click="handleGenerateJson"> {{ saveText ? saveText : "生成JSON" }} </n-button>
-				<n-button text @click="exportJSON" style="margin-left: 20px"> 导出JSON</n-button>
-				<n-button text @click="previewTheForm" style="margin-left: 20px"> 预览表单</n-button>
+				<n-button text @click="exportJSON" style="margin-left: 20px"> 导出JSON </n-button>
+				<n-button text @click="previewTheForm" style="margin-left: 20px"> 预览表单 </n-button>
 			</template>
 			<design-form v-model:widget-form="state.widgetForm" v-model:widgetFormSelect="state.widgetFormSelect" />
 		</n-card>
@@ -74,8 +76,12 @@ const props = defineProps({
 });
 // 基础组件
 const basicFields = ["input", "number", "radio", "checkbox", "time", "date", "rate", "select", "switch", "slider", "color"];
+// 高级组件
+const advanceFields = ["upload"];
 // 布局组件
 const layoutFields = ["grid"];
+// 其他组件
+const otherFields = ["text", "alert", "divider"];
 // 表单预览组件
 const formPreviewRef = ref();
 
