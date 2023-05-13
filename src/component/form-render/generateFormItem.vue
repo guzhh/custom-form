@@ -1,6 +1,6 @@
 <template>
 	<n-form-item
-		v-if="element"
+		v-if="element && element.options.show"
 		:key="element.key"
 		:label="element.label"
 		:rule="element.options.rules"
@@ -261,8 +261,11 @@
 </template>
 
 <script>
+import SvgIcon from "@/component/svg-icon/index.vue";
+
 export default {
 	name: "generateFormItem",
+	components: { SvgIcon },
 	mixins: [],
 	props: {
 		widgetForm: {

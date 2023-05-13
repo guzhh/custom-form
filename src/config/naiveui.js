@@ -62,9 +62,10 @@ export const basicComponents = [
 		type: "input",
 		options: {
 			change: "",
+			show: true, // 是否显示
+			showLabel: true,
 			width: "100%",
 			type: "text",
-			showLabel: true,
 			defaultValue: "",
 			placeholder: "",
 			maxlength: null,
@@ -83,6 +84,7 @@ export const basicComponents = [
 		type: "number",
 		options: {
 			change: "",
+			show: true, // 是否显示
 			showLabel: true, // 是否显示标题
 			width: "100%", // 宽度
 			defaultValue: 0, // 默认值
@@ -102,12 +104,13 @@ export const basicComponents = [
 		type: "radio",
 		options: {
 			change: "",
+			show: true, // 是否显示
+			showLabel: true,
 			click: "",
-			defaultValue: "",
 			width: "",
+			defaultValue: "",
 			groupType: "radioGroup",
 			remote: false,
-			showLabel: true,
 			remoteFunc: "https://raw.githubusercontent.com/fuchengwei/vue-form-create/master/mock/mock.json",
 			options: [
 				{
@@ -137,12 +140,13 @@ export const basicComponents = [
 		type: "checkbox",
 		options: {
 			change: "",
+			show: true, // 是否显示
+			showLabel: true,
 			click: "",
 			defaultValue: [],
 			width: "",
 			inline: true,
 			remote: false,
-			showLabel: true,
 			remoteFunc: "https://raw.githubusercontent.com/fuchengwei/vue-form-create/master/mock/mock.json",
 			options: [
 				{
@@ -172,6 +176,7 @@ export const basicComponents = [
 		type: "time",
 		options: {
 			change: "",
+			show: true, // 是否显示
 			showLabel: true,
 			defaultValue: null,
 			width: "100%",
@@ -189,6 +194,7 @@ export const basicComponents = [
 		type: "date",
 		options: {
 			change: "",
+			show: true, // 是否显示
 			showLabel: true,
 			defaultValue: null,
 			width: "100%",
@@ -207,6 +213,7 @@ export const basicComponents = [
 		options: {
 			change: "",
 			click: "",
+			show: true, // 是否显示
 			showLabel: true,
 			defaultValue: null,
 			max: 5,
@@ -226,6 +233,7 @@ export const basicComponents = [
 			placeholder: "请选择",
 			multiple: false,
 			remote: false,
+			show: true, // 是否显示
 			showLabel: true,
 			filterable: false,
 			allowClear: false,
@@ -259,6 +267,7 @@ export const basicComponents = [
 		options: {
 			change: "",
 			click: "",
+			show: true, // 是否显示
 			showLabel: true,
 			defaultValue: false,
 			disabled: false,
@@ -274,6 +283,7 @@ export const basicComponents = [
 		type: "slider",
 		options: {
 			change: "",
+			show: true, // 是否显示
 			showLabel: true,
 			defaultValue: 0,
 			width: "",
@@ -293,6 +303,7 @@ export const basicComponents = [
 		type: "color",
 		options: {
 			change: "",
+			show: true, // 是否显示
 			showLabel: true,
 			defaultValue: "",
 			width: "",
@@ -311,6 +322,7 @@ export const advanceComponents = [
 		label: "上传",
 		type: "upload",
 		options: {
+			show: true, // 是否显示
 			showLabel: true, // 是否显示标题
 			defaultValue: [], // 默认值
 			defaultUpload: true, // 选择文件时候是否默认上传
@@ -341,6 +353,7 @@ export const otherComponents = [
 		type: "text",
 		label: "文字",
 		options: {
+			show: true, // 是否显示
 			showLabel: false,
 			text: "文字",
 			style: {
@@ -357,6 +370,7 @@ export const otherComponents = [
 		type: "divider",
 		label: "分割线",
 		options: {
+			show: true, // 是否显示
 			showLabel: false,
 			text: "分割线",
 			dashed: false,
@@ -368,6 +382,7 @@ export const otherComponents = [
 		label: "警告信息",
 		type: "alert",
 		options: {
+			show: true, // 是否显示
 			showLabel: false,
 			title: "This is a alert",
 			content: "This is a alert",
@@ -382,6 +397,7 @@ export const otherComponents = [
 		label: "按钮",
 		type: "button",
 		options: {
+			show: true, // 是否显示
 			showLabel: false,
 			text: "按钮",
 			type: "default",
@@ -420,6 +436,7 @@ export const layoutComponents = [
 			cols: 24,
 			xGap: 0,
 			yGap: 0,
+			show: true, // 是否显示
 			collapsed: false,
 			collapsedRows: 1,
 			responsive: "self",

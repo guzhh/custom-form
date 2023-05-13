@@ -12,7 +12,7 @@
 		:show-label="state.widgetForm.config.showLabel"
 	>
 		<template v-for="(element, index) of state.widgetForm.list">
-			<template v-if="element.type === 'grid'">
+			<template v-if="element.type === 'grid' && element.options.show">
 				<n-grid
 					v-if="element.key"
 					:key="element.key"

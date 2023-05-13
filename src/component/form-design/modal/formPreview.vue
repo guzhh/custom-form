@@ -28,6 +28,9 @@ const handleOk = () => {
 	generateFormRef.value.getData().then(res => {
 		console.log(res);
 	});
+	generateFormRef.value.getWidgetFormData().then(res => {
+		console.log(res);
+	});
 };
 
 const open = val => {

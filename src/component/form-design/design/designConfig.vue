@@ -19,6 +19,20 @@
 		<n-form-item label="占位内容" v-if="hasKey('placeholder')">
 			<n-input v-model:value="data.options.placeholder" />
 		</n-form-item>
+		<n-form-item v-if="hasKey('show')">
+			<template #label>
+				显示
+				<n-tooltip trigger="hover">
+					<template #trigger>
+						<n-icon size="18">
+							<SvgIcon iconClass="question" style="margin-right: 10px" />
+						</n-icon>
+					</template>
+					是否在表单渲染器中显示<br />注意该属性在表单设计时不起作用，具体可在预览界面查看
+				</n-tooltip>
+			</template>
+			<n-checkbox v-model:checked="data.options.show">显示</n-checkbox>
+		</n-form-item>
 		<!--		当前使用组件{{ data.type }} <br />是否有该元素 {{ checkComponent(data.type) }}-->
 		<component v-if="checkComponent(data.type)" :is="componentsMap[data.type]" :select="data" />
 
@@ -69,6 +83,7 @@ import Text from "../configs/Text.vue";
 import Divider from "../configs/Divider.vue";
 import Alert from "../configs/Alert.vue";
 import { checkComponent } from "../enums";
+import SvgIcon from "@/component/svg-icon/index.vue";
 
 const emits = defineEmits(["update:select"]);
 
