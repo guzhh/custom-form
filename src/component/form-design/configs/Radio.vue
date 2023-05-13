@@ -33,8 +33,9 @@
 						<template #default="{ value }">
 							<div style="display: flex; align-items: center; width: 100%">
 								<n-radio :value="value.value" style="margin-right: 5px" />
-								<n-input v-model:value="value.label" type="text" style="margin-right: 12px; width: 160px" placeholder="选项名" />
-								<n-input v-model:value="value.value" type="text" placeholder="选项值" />
+								<n-input v-model:value="value.label" type="text" style="width: 100px" placeholder="选项名" />
+								<n-input v-model:value="value.value" type="text" placeholder="选项值" style="width: 100px" />
+								<n-input-number v-model:value="value.score" placeholder="选项分值" style="width: 100px" min="0" :precision="0" />
 							</div>
 						</template>
 					</n-dynamic-input>
@@ -72,8 +73,9 @@ watch(data, val => emits("update:select", val));
 const handleInsertOption = () => {
 	const length = data.value.options.options.length + 1;
 	return {
-		label: `Option ${length}`,
-		value: `Option ${length}`
+		label: `选项 ${length}`,
+		value: `选项 ${length}`,
+		score: 0
 	};
 };
 </script>

@@ -67,7 +67,6 @@ const props = defineProps({
 		default: false
 	}
 });
-const message = useMessage();
 const generateForm = ref();
 const formJson = (props.data && JSON.parse(JSON.stringify(props.data))) ?? naiveui.widgetForm;
 // 将 naiveui.widgetForm 上的函数放入 formJson上，因为formJson被json化后方法消失了
@@ -185,6 +184,44 @@ const getData = () => {
 	});
 };
 
+/**
+ * 计算当前表单得分
+ * @returns {{radioList: *[], fraction: number}}
+ */
+const calculateTheScore = () => {
+	const radioList = [];
+	let fraction = 0;
+	const recursionFunc = list => {
+		for (let index = 0; index < list.length; index++) {
+			const { model } = list[index];
+			// 判断是否存在绑定key
+			if (!model) {
+				return;
+			}
+			// 判断是否是否是栅格组件
+			if (list[index].type === "grid") {
+				// 如果是则递归调用
+				list[index].columns.forEach(col => recursionFunc(col.list));
+			} else {
+				// eslint-disable-next-line no-lonely-if
+				if (list[index].type === "radio" || (list[index].type === "select" && list[index].options.multiple === false)) {
+					const selectedOptions = list[index].options.options.find(option => option.value === state.model[list[index].model]);
+					if (selectedOptions) {
+						fraction += typeof selectedOptions.score === "number" ? selectedOptions.score : 0;
+					}
+					radioList.push(list[index]);
+				}
+			}
+		}
+	};
+	recursionFunc(state.widgetForm.list);
+	return { radioList, fraction };
+};
+
+/**
+ * 为表单json 回填 当前表单填写的值
+ * @param list
+ */
 const setWidgetFormData = list => {
 	for (let index = 0; index < list.length; index++) {
 		const { model } = list[index];
@@ -225,7 +262,7 @@ const getWidgetFormData = () => {
 	});
 };
 
-defineExpose({ getData, reset, getWidgetFormData });
+defineExpose({ getData, reset, getWidgetFormData, calculateTheScore });
 </script>
 
 <style scoped></style>

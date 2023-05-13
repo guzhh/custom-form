@@ -34,7 +34,7 @@
 		<n-card
 			size="small"
 			content-style="padding: 0; overflow: auto;"
-			style="margin-left: 5px; width: 420px; flex-shrink: 0"
+			style="margin-left: 5px; width: 500px; flex-shrink: 0"
 			:style="{ height: `100%` }"
 		>
 			<n-tabs type="line" :tabs-padding="20" pane-style="padding: 20px;">
