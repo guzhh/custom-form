@@ -248,15 +248,18 @@ export const basicComponents = [
 			options: [
 				{
 					label: "选项 1",
-					value: "选项 1"
+					value: "选项 1",
+					score: 0
 				},
 				{
 					label: "选项 2",
-					value: "选项 2"
+					value: "选项 2",
+					score: 0
 				},
 				{
 					label: "选项 3",
-					value: "选项 3"
+					value: "选项 3",
+					score: 0
 				}
 			],
 			remoteOptions: [],

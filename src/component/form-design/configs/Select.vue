@@ -11,7 +11,18 @@
 			<n-radio-button :value="true">多选</n-radio-button>
 		</n-radio-group>
 	</n-form-item>
-	<n-form-item label="选项">
+	<n-form-item>
+		<template #label>
+			选项
+			<n-tooltip trigger="hover">
+				<template #trigger>
+					<n-icon size="18">
+						<SvgIcon iconClass="question" style="margin-right: 10px" />
+					</n-icon>
+				</template>
+				选项分值只有在选择框为单选时才会参与计算表单得分
+			</n-tooltip>
+		</template>
 		<div>
 			<!--			<n-radio-group button-style="solid" v-model:value="data.options.remote">-->
 			<!--				<n-radio-button :value="false">静态数据</n-radio-button>-->
@@ -39,8 +50,9 @@
 						<template #default="{ value }">
 							<div style="display: flex; align-items: center; width: 100%">
 								<n-checkbox :value="value.value" style="margin-right: 5px" />
-								<n-input v-model:value="value.label" type="text" style="margin-right: 12px; width: 160px" />
-								<n-input v-model:value="value.value" type="text" />
+								<n-input v-model:value="value.label" type="text" style="width: 100px" placeholder="选项名" />
+								<n-input v-model:value="value.value" type="text" placeholder="选项值" style="width: 100px" />
+								<n-input-number v-model:value="value.score" placeholder="选项分值" style="width: 100px" min="0" :precision="0" />
 							</div>
 						</template>
 					</n-dynamic-input>
@@ -50,8 +62,9 @@
 						<template #default="{ value }">
 							<div style="display: flex; align-items: center; width: 100%">
 								<n-radio :value="value.value" style="margin-right: 5px" />
-								<n-input v-model:value="value.label" type="text" style="margin-right: 12px; width: 160px" />
-								<n-input v-model:value="value.value" type="text" />
+								<n-input v-model:value="value.label" type="text" style="width: 100px" placeholder="选项名" />
+								<n-input v-model:value="value.value" type="text" placeholder="选项值" style="width: 100px" />
+								<n-input-number v-model:value="value.score" placeholder="选项分值" style="width: 100px" min="0" :precision="0" />
 							</div>
 						</template>
 					</n-dynamic-input>
@@ -70,6 +83,8 @@
 </template>
 
 <script setup>
+import SvgIcon from "@/component/svg-icon/index.vue";
+
 defineOptions({ name: "SelectWidget" });
 const props = defineProps({
 	select: {
@@ -119,8 +134,9 @@ handleSelectModeChange(data.value.options.multiple);
 const handleInsertOption = () => {
 	const length = data.value.options.options.length + 1;
 	return {
-		label: `Option ${length}`,
-		value: `Option ${length}`
+		label: `选项 ${length}`,
+		value: `选项 ${length}`,
+		score: 0
 	};
 };
 </script>
