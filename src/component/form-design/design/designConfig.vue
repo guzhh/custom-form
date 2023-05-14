@@ -1,6 +1,6 @@
 <template>
 	<n-form layout="vertical" v-if="data" :key="data.key">
-		<n-form-item label="字段标识" v-if="data.type !== 'grid'">
+		<n-form-item label="字段标识" v-if="data.type !== 'grid' && data.type !== 'collapse'">
 			<n-input v-model:value="data.model" />
 		</n-form-item>
 

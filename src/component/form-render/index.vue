@@ -262,7 +262,26 @@ const getWidgetFormData = () => {
 	});
 };
 
-defineExpose({ getData, reset, getWidgetFormData, calculateTheScore });
+/**
+ * 执行自定义函数
+ */
+const executeustomFunc = () => {
+	console.log("触发了自定义函数执行");
+	const { widgetForm } = state;
+	// eslint-disable-next-line no-restricted-syntax
+	for (const key in naiveui.widgetForm) {
+		if (naiveui.widgetForm.hasOwnProperty.call(key)) {
+			if (typeof naiveui.widgetForm[key] === "function") {
+				widgetForm[key] = naiveui.widgetForm[key];
+			}
+		}
+	}
+	// eslint-disable-next-line no-new-func
+	const customFn = new Function("form", "view", widgetForm.config.customFunc);
+	return customFn.call(this, state.model, state.widgetForm);
+};
+
+defineExpose({ getData, reset, getWidgetFormData, calculateTheScore, executeustomFunc });
 </script>
 
 <style scoped></style>

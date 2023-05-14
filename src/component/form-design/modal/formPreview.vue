@@ -15,6 +15,7 @@
 				<n-button type="primary" style="margin-left: 15px" @click="handleOk">获取表单填报数据</n-button>
 				<n-button type="primary" style="margin-left: 15px" @click="getFormAllData">获取整个表单数据</n-button>
 				<n-button type="primary" style="margin-left: 15px" @click="calculateScore">计算得分</n-button>
+				<n-button type="primary" style="margin-left: 15px" @click="executeustomFunc">执行自定义方法</n-button>
 			</div>
 		</template>
 	</base-modal>
@@ -50,8 +51,12 @@ const getFormAllData = () => {
 // 计算得分
 const calculateScore = () => {
 	const result = generateFormRef.value.calculateTheScore();
-
 	console.log("获取到表单得分以及需要计算得分的表单项", result);
+};
+
+// 执行自定义方法
+const executeustomFunc = () => {
+	generateFormRef.value.executeustomFunc();
 };
 
 const open = val => {

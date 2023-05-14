@@ -53,7 +53,7 @@ import SvgIcon from "@/component/svg-icon/index.vue";
 defineOptions({ name: "BaseModal" });
 
 const slotFooter = !!useSlots().footer;
-const emits = defineEmits(["close", "update:show", "ok", "after-enter", "after-leave"]);
+const emits = defineEmits(["close", "update:show", "ok", "after-enter", "after-leave", "window-change"]);
 
 const props = defineProps({
 	show: {
@@ -114,6 +114,7 @@ const toggleFullScreen = () => {
 		const oBar = document.getElementById("basic-modal-bar");
 		startDrag(oBar, oBox);
 	});
+	emits("window-change", ifFullscreen.value);
 };
 
 const handleOk = () => {

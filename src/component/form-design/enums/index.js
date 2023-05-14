@@ -17,6 +17,7 @@ export const ComponentType = {
 	// Tree: "tree",
 	// Table: "table",
 	Grid: "grid",
+	Collapse: "collapse",
 	// DynamicTable: "dynamicTable",
 	// SelectTree: "selectTree",
 	// Transfer: "transfer",

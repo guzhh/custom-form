@@ -27,16 +27,23 @@ export const widgetForm = {
 		labelWidth: "auto", // 标签的宽度
 		labelPlacement: "top", // 标签显示的位置 'left' | 'top'
 		showLabel: true, // 是否展示标签
-		requireMarkPlacement: "left" // 必填星号的位置
+		requireMarkPlacement: "left", // 必填星号的位置
+		customFunc: "console.log(view)\nconsole.log(form)" // 表单设计者自定义的函数
 	},
-	// getWidget:['list'].map(value => {
-	//   console.log('1111=',value)
-	// }),
+
 	getWidget(modelKey) {
 		let widget = null;
 		this.list.forEach(value => {
 			if (value.model === modelKey) {
 				widget = value;
+			} else if (value.type === "grid") {
+				value.columns.forEach(column => {
+					column.list.forEach(val => {
+						if (val.model === modelKey) {
+							widget = val;
+						}
+					});
+				});
 			}
 		});
 		return widget;
@@ -449,6 +456,33 @@ export const layoutComponents = [
 			itemResponsive: false,
 			justify: "start",
 			align: "top"
+		}
+	},
+	{
+		label: "折叠面板",
+		type: "collapse",
+		items: [
+			{
+				name: "折叠面板 1",
+				title: "折叠面板 1",
+				list: []
+			},
+			{
+				name: "折叠面板 2",
+				title: "折叠面板 2",
+				list: []
+			},
+			{
+				name: "折叠面板 3",
+				title: "折叠面板 3",
+				list: []
+			}
+		],
+		options: {
+			show: true, // 是否显示
+			defaultExpandedNames: "折叠面板 1", // 默认展开的项
+			accordion: true, // 是否只允许展开一个面板
+			arrowPlacement: "right" // 箭头位置
 		}
 	}
 ];
