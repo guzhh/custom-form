@@ -62,7 +62,7 @@ onMounted(() => {
 	}
 
 	// 监听代码编辑器输入
-	codeEditor.value.on("change", () => emits("update:value", codeEditor?.getValue()));
+	codeEditor.value.on("change", () => emits("update:value", codeEditor.value?.getValue()));
 });
 
 watch(
@@ -70,7 +70,7 @@ watch(
 	value => {
 		if (codeEditor.value) {
 			const currentPosition = codeEditor.value?.selection.getCursor();
-			codeEditor.value.getValue(value);
+			codeEditor.value.setValue(value);
 			codeEditor.value.clearSelection();
 			codeEditor.value.gotoLine(currentPosition.row + 1, currentPosition.column, true);
 		}

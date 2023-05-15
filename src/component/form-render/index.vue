@@ -86,7 +86,6 @@ const state = reactive({
 // 生成表单项字段以及校验规则
 const generateModel = list => {
 	for (let index = 0; index < list.length; index++) {
-		console.log("------------", list[index]);
 		const { model } = list[index];
 		// 判断是否存在绑定key
 		if (!model) {
@@ -185,40 +184,6 @@ const getData = () => {
 };
 
 /**
- * 计算当前表单得分
- * @returns {{radioList: *[], fraction: number}}
- */
-const calculateTheScore = () => {
-	const radioList = [];
-	let fraction = 0;
-	const recursionFunc = list => {
-		for (let index = 0; index < list.length; index++) {
-			const { model } = list[index];
-			// 判断是否存在绑定key
-			if (!model) {
-				return;
-			}
-			// 判断是否是否是栅格组件
-			if (list[index].type === "grid") {
-				// 如果是则递归调用
-				list[index].columns.forEach(col => recursionFunc(col.list));
-			} else {
-				// eslint-disable-next-line no-lonely-if
-				if (list[index].type === "radio" || (list[index].type === "select" && list[index].options.multiple === false)) {
-					const selectedOptions = list[index].options.options.find(option => option.value === state.model[list[index].model]);
-					if (selectedOptions) {
-						fraction += typeof selectedOptions.score === "number" ? selectedOptions.score : 0;
-					}
-					radioList.push(list[index]);
-				}
-			}
-		}
-	};
-	recursionFunc(state.widgetForm.list);
-	return { radioList, fraction };
-};
-
-/**
  * 为表单json 回填 当前表单填写的值
  * @param list
  */
@@ -238,6 +203,33 @@ const setWidgetFormData = list => {
 			list[index].options.defaultValue = state.model[model];
 		}
 	}
+};
+
+/**
+ * 完善表单对象，回填输入的值以及初始方法
+ */
+const refineWidgetFormData = () => {
+	// eslint-disable-next-line no-restricted-syntax
+	for (const key in naiveui.widgetForm) {
+		// eslint-disable-next-line no-prototype-builtins
+		if (naiveui.widgetForm.hasOwnProperty(key)) {
+			if (typeof naiveui.widgetForm[key] === "function") {
+				state.widgetForm[key] = naiveui.widgetForm[key];
+			}
+		}
+	}
+	// 写入表单填写的值
+	setWidgetFormData(state.widgetForm.list);
+};
+
+/**
+ * 计算当前表单得分
+ * @returns {{radioList: *[], fraction: number}}
+ */
+const calculateTheScore = () => {
+	// 完善表单json
+	refineWidgetFormData();
+	return state.widgetForm.getTheTotalScore();
 };
 
 /**
@@ -267,17 +259,10 @@ const getWidgetFormData = () => {
  */
 const executeustomFunc = () => {
 	console.log("触发了自定义函数执行");
-	const { widgetForm } = state;
-	// eslint-disable-next-line no-restricted-syntax
-	for (const key in naiveui.widgetForm) {
-		if (naiveui.widgetForm.hasOwnProperty.call(key)) {
-			if (typeof naiveui.widgetForm[key] === "function") {
-				widgetForm[key] = naiveui.widgetForm[key];
-			}
-		}
-	}
+	// 完善表单json
+	refineWidgetFormData();
 	// eslint-disable-next-line no-new-func
-	const customFn = new Function("form", "view", widgetForm.config.customFunc);
+	const customFn = new Function("form", "view", state.widgetForm.config.customFunc);
 	return customFn.call(this, state.model, state.widgetForm);
 };
 

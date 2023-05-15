@@ -51,12 +51,23 @@
 				<n-radio-button value="right-hanging">右侧悬停</n-radio-button>
 			</n-radio-group>
 		</n-form-item>
+		<h4>自定义事件</h4>
+		<n-form-item label="自定义函数">
+			<n-button type="info" dashed @click="editTheCode">编辑代码</n-button>
+		</n-form-item>
+		<n-alert type="warning" style="margin-bottom: 10px">注意：此功能在设计状态时无效，可点击预览查看效果</n-alert>
 	</n-form>
+	<code-editing ref="codeEditingRef" @ok="codeOk"></code-editing>
 </template>
 
 <script setup>
+import CodeEditing from "@/component/form-design/modal/codeEditing.vue";
+
 defineOptions({ name: "formConfig" });
 defineEmits(["update:config"]);
+
+const codeEditingRef = ref();
+
 const props = defineProps({
 	config: {
 		type: Object,
@@ -77,6 +88,20 @@ const changeLabelPlacement = () => {
 		data.value.labelWidth = 80;
 	}
 };
+
+const codeOk = jsStr => {
+	data.value.customFunc = jsStr;
+};
+
+const editTheCode = () => {
+	codeEditingRef.value.show(data.value.customFunc);
+};
 </script>
 
-<style scoped></style>
+<style scoped>
+h4 {
+	border-bottom: 1px solid #e1e1e1;
+	padding-bottom: 10px;
+	margin-bottom: 15px;
+}
+</style>

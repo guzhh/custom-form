@@ -33,6 +33,7 @@
   },
   "license": "ISC",
   "dependencies": {
+    "ace-builds": "^1.20.0",
     "lodash": "^4.17.21",
     "naive-ui": "^2.34.3",
     "nanoid": "^4.0.2",

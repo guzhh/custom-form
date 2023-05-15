@@ -1,6 +1,9 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  ace-builds:
+    specifier: ^1.20.0
+    version: 1.20.0
   lodash:
     specifier: ^4.17.21
     version: 4.17.21
@@ -743,6 +746,10 @@ packages:
   /@xtuc/long@4.2.2:
     resolution: {integrity: sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==}
     dev: true
+
+  /ace-builds@1.20.0:
+    resolution: {integrity: sha512-JUvWbRXz7tL3EkcM5CpVyyuu9mvVRo594ZRgwHzb9arb9s2o5gTg94Lrk3zQZzM1udq6fRSDnmU2RClJPt9aNw==}
+    dev: false
 
   /acorn-import-assertions@1.8.0(acorn@8.8.2):
     resolution: {integrity: sha512-m7VZ3jwz4eK6A4Vtt8Ew1/mNbP24u0FhdyfA7fSvnJR6LMdfOYnmuIrrJAgrYfYJ10F/otaHTtrtrtmHdMNzEw==}

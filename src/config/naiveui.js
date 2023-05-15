@@ -31,6 +31,11 @@ export const widgetForm = {
 		customFunc: "console.log(view)\nconsole.log(form)" // 表单设计者自定义的函数
 	},
 
+	/**
+	 * 根据表单字段key获取表单项配置
+	 * @param modelKey
+	 * @returns {null}
+	 */
 	getWidget(modelKey) {
 		let widget = null;
 		this.list.forEach(value => {
@@ -47,6 +52,54 @@ export const widgetForm = {
 			}
 		});
 		return widget;
+	},
+
+	/**
+	 * 获取表单字段key获取表单项得分
+	 * @param modelKey
+	 */
+	getWidgetScores(modelKey) {
+		const widget = this.getWidget(modelKey);
+		if (widget.type === "radio" || (widget.type === "select" && widget.options.multiple === false)) {
+			const selectedOptions = widget.options.options.find(option => option.value === widget.options.defaultValue);
+			if (selectedOptions) {
+				return typeof selectedOptions.score === "number" ? selectedOptions.score : 0;
+			}
+			return 0;
+		}
+		return 0;
+	},
+
+  /**
+   * 计算表单总分
+   * @returns {number}
+   */
+	getTheTotalScore() {
+		let fraction = 0;
+		const calculateTheScore = list => {
+			for (let index = 0; index < list.length; index++) {
+				const { model } = list[index];
+				// 判断是否存在绑定key
+				if (!model) {
+					return;
+				}
+				// 判断是否是否是栅格组件
+				if (list[index].type === "grid") {
+					// 如果是则递归调用
+					list[index].columns.forEach(col => calculateTheScore(col.list));
+				} else {
+					// eslint-disable-next-line no-lonely-if
+					if (list[index].type === "radio" || (list[index].type === "select" && list[index].options.multiple === false)) {
+						const selectedOptions = list[index].options.options.find(option => option.value === list[index].options.defaultValue);
+						if (selectedOptions) {
+							fraction += typeof selectedOptions.score === "number" ? selectedOptions.score : 0;
+						}
+					}
+				}
+			}
+		};
+		calculateTheScore(this.list);
+		return fraction;
 	}
 };
 

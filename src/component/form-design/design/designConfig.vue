@@ -143,4 +143,10 @@ const verifyOptions = [
 const hasKey = key => Object.keys(data.value.options).includes(key);
 </script>
 
-<style scoped></style>
+<style lang="less" scoped>
+h4 {
+	border-bottom: 1px solid #e1e1e1;
+	padding-bottom: 10px;
+	margin-bottom: 15px;
+}
+</style>
