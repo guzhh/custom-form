@@ -8,18 +8,18 @@
 		@ok="handleOk"
 		@window-change="windowChange"
 	>
-		<n-alert type="info" style="margin-bottom: 10px"
-			><n-space>
+		<n-alert type="info" style="margin-bottom: 10px">
+			<n-space>
 				使用示例
 				<n-button text type="primary" @click="setTestEvent('dynamicDisabled')">动态禁用/启用</n-button>
 				<n-button text type="primary" @click="setTestEvent('dynamicSetValue')">动态赋值</n-button>
 				<n-button text type="primary" @click="setTestEvent('dynamicRequired')">必填项修改</n-button>
 				<n-button text type="primary" @click="setTestEvent('dynamicHideLabel')">Label动态显隐</n-button>
 				<n-button text type="primary" @click="setTestEvent('dynamicGetPoints')">获取表单项得分</n-button>
-
+				<n-button text type="primary" @click="setTestEvent('dynamicGetTotalScore')">获取表单总得分</n-button>
 				(提示：仅支持Javascript语法)
-			</n-space></n-alert
-		>
+			</n-space>
+		</n-alert>
 		<div class="code-bord">
 			function {{ eventType }}(view,form){
 			<n-tooltip trigger="hover">
@@ -90,6 +90,9 @@ const setTestEvent = type => {
 			break;
 		case "dynamicGetPoints":
 			code = `let score = view.getWidgetScores('字段标识')`;
+			break;
+		case "dynamicGetTotalScore":
+			code = `let totalScore = view.getTheTotalScore()`;
 			break;
 		default:
 			console.log(type);

@@ -70,10 +70,10 @@ export const widgetForm = {
 		return 0;
 	},
 
-  /**
-   * 计算表单总分
-   * @returns {number}
-   */
+	/**
+	 * 计算表单总分
+	 * @returns {number}
+	 */
 	getTheTotalScore() {
 		let fraction = 0;
 		const calculateTheScore = list => {
