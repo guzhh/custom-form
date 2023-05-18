@@ -136,7 +136,8 @@ const verifyOptions = [
 	{ label: "URL地址", value: "url" },
 	{ label: "十六进制", value: "hex" },
 	{ label: "邮箱地址", value: "email" },
-	{ label: "任意类型", value: "any" }
+	{ label: "任意类型", value: "any" },
+	{ label: "无类型", value: undefined }
 ];
 
 // 判断表单元素是否需要某个配置字段

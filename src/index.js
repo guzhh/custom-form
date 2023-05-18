@@ -4,6 +4,7 @@ import "virtual:svg-icons-register"; // 引入SVG注册脚本
  */
 import FormRender from "@/component/form-render/index.vue";
 import FormDesign from "@/component/form-design/index.vue";
+import ServerFormRender from "@/component/server-form-render/index.vue";
 
 /**
  * 如果有多个其它组件,都可以写到这个数组里
@@ -21,6 +22,6 @@ import FormDesign from "@/component/form-design/index.vue";
 // 	});
 // };
 
-export { FormRender, FormDesign };
+export { FormRender, FormDesign, ServerFormRender };
 
 // export default install; // 这个方法使用的时候可以被use调用

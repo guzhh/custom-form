@@ -67,7 +67,7 @@ const emits = defineEmits(["ok"]);
 
 const props = defineProps({
 	widgetFormJson: {
-		type: Object,
+		type: String,
 		required: false
 	},
 	saveText: {

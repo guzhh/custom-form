@@ -15,10 +15,11 @@
 
 ### 表单设计器 `form-design`
 #### 属性
-| 名称  | 类型     | 默认值 | 说明                                              |
-|---|--------|-----|-------------------------------------------------|
-|  widgetFormJson | Object | 见下方 | 需要传递符合规范的的数据，最好时表单设计器自己生成的数据，其他自定义数据可能导致表单设计器报错 |
-| saveText  | string |   生成JSON  | 保存表单设计按钮的文字  |
+| 名称             | 类型        | 默认值 | 说明                                              |
+|----------------|-----------|-----|-------------------------------------------------|
+| widgetFormJson | String    | 见下方 | 需要传递符合规范的的数据，最好时表单设计器自己生成的数据，其他自定义数据可能导致表单设计器报错 |
+| saveText       | string    |   生成JSON  | 保存表单设计按钮的文字                                     |
+| on-ok          | ()=> void |     | 点击保存按钮触发的事件                                     |
 
 ##### widgetFormJson 说明
 
@@ -117,7 +118,7 @@ export const widgetForm = {
 |----|--------------|------------------|
 |  getJson  | () => Object | 获取表单设计器设计出来的json |
 
-### 表单设计器 `form-render`
+### 表单渲染器 `form-render`
 
 #### 属性
 
@@ -133,6 +134,7 @@ export const widgetForm = {
 |----|------------|---------------------------|
 |  getData  | Promise()  | 校验表单并获取表单填写的值             |
 |  reset  | ()=>void   | 重置表单                      |
+|  handleValidateForm  | Promise()   | 手动验证表单输入                  |
 |  getWidgetFormData  | Promise()  | 获取整个表单渲染json,并且包含填写的值     |
 |  calculateTheScore  | ()=>Number | 计算当前表单得分                  |
 |  executeustomFunc  | ()=>{}     | 执行自定义函数, 函数返回具体看自定义函数如何编写 |

@@ -21,15 +21,29 @@
 			</n-space>
 		</n-alert>
 		<div class="code-bord">
-			function {{ eventType }}(view,form){
+			function {{ eventType }}(view,form,message,notification){
 			<n-tooltip trigger="hover">
 				<template #trigger>
 					<n-icon size="18">
 						<SvgIcon iconClass="question" style="margin-right: 10px" />
 					</n-icon>
 				</template>
-				view：视图组件信息（更多操作查看src/config/naiveui.js）<br />
-				form：表单信息
+				view：视图组件信息（<a href="https://www.npmjs.com/package/@guzhh/custom-form" target="_blank" style="color: #2878fc"
+					>更多操作查看</a
+				>）<br />
+				form：表单填写的信息<br />
+				message：naive-ui 信息 Message （<a
+					href="https://www.naiveui.com/zh-CN/os-theme/components/message"
+					target="_blank"
+					style="color: #2878fc"
+					>更多操作查看</a
+				>）<br />
+				notification：naive-ui 通知 Notification （<a
+					href="https://www.naiveui.com/zh-CN/os-theme/components/notification"
+					target="_blank"
+					style="color: #2878fc"
+					>更多操作查看</a
+				>）<br />
 			</n-tooltip>
 		</div>
 		<CodeEditor style="height: calc(100% - 120px)" v-model:value="jsStr" language="javascript" v-if="isShowCode" />

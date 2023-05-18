@@ -54,6 +54,8 @@
 import { naiveui } from "@/config";
 import GenerateFormItem from "./generateFormItem.vue";
 
+const message = useMessage();
+const notification = useNotification();
 const props = defineProps({
 	data: {
 		type: Object,
@@ -104,10 +106,9 @@ const generateModel = list => {
 				// 如果没有则将默认值附上
 				state.model[model] = list[index].options.defaultValue;
 			}
-			state.rules[model] = list[index].options.rules;
+			state.rules[model] = { ...list[index].options.rules };
 		}
 	}
-	console.log("rules=", state.rules);
 };
 
 /**
@@ -160,6 +161,23 @@ onMounted(() => {
  */
 const reset = () => {
 	generateForm.value?.restoreValidation();
+	// 还原表单
+	generateModel(state.widgetForm.list);
+};
+
+/**
+ * 手动验证表单
+ */
+const handleValidateForm = () => {
+	return new Promise((resolve, reject) => {
+		generateForm.value?.validate(errors => {
+			if (errors) {
+				resolve();
+			} else {
+				reject(errors);
+			}
+		});
+	});
 };
 
 /**
@@ -170,7 +188,6 @@ const getData = () => {
 	return new Promise((resolve, reject) => {
 		generateForm.value
 			?.validate(errors => {
-				console.log("errors=", errors);
 				if (!errors) {
 					resolve(state.model);
 				} else {
@@ -240,10 +257,12 @@ const getWidgetFormData = () => {
 	return new Promise((resolve, reject) => {
 		generateForm.value
 			?.validate(errors => {
-				console.log("errors=", errors);
 				if (!errors) {
 					setWidgetFormData(state.widgetForm?.list ?? []);
-					resolve(JSON.stringify(state.widgetForm));
+					resolve({
+						model: state.model,
+						widgetForm: state.widgetForm
+					});
 				} else {
 					reject(new Error("验证失败"));
 				}
@@ -262,11 +281,11 @@ const executeustomFunc = () => {
 	// 完善表单json
 	refineWidgetFormData();
 	// eslint-disable-next-line no-new-func
-	const customFn = new Function("form", "view", state.widgetForm.config.customFunc);
-	return customFn.call(this, state.model, state.widgetForm);
+	const customFn = new Function("form", "view", "message", "notification", state.widgetForm.config.customFunc);
+	return customFn.call(this, state.model, state.widgetForm, message, notification);
 };
 
-defineExpose({ getData, reset, getWidgetFormData, calculateTheScore, executeustomFunc });
+defineExpose({ getData, reset, getWidgetFormData, calculateTheScore, executeustomFunc, handleValidateForm });
 </script>
 
 <style scoped></style>

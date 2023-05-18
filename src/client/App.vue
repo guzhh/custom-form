@@ -3,6 +3,12 @@
 		<n-message-provider>
 			<n-dialog-provider>
 				<form-design />
+				<server-form-render
+					temp-id="1658722046437560320"
+					:form-all-id="'1659137580974997504'"
+					:form-val-id="'1659137602986704896'"
+					base-url="http://192.168.1.88:8600/panku-forms-server"
+				/>
 			</n-dialog-provider>
 		</n-message-provider>
 	</n-notification-provider>
@@ -10,6 +16,7 @@
 
 <script setup>
 import FormDesign from "@/component/form-design/index.vue";
+import ServerFormRender from "@/component/server-form-render/index.vue";
 </script>
 
 <style>
