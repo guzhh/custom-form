@@ -53,7 +53,16 @@
 		</n-form-item>
 		<h4>自定义事件</h4>
 		<n-form-item label="自定义函数">
-			<n-button type="info" dashed @click="editTheCode">编辑代码</n-button>
+			<n-button type="info" dashed @click="editTheCode('customFunc')">编辑代码</n-button>
+		</n-form-item>
+		<n-form-item label="渲染成功执行函数">
+			<n-button type="info" dashed @click="editTheCode('mountedFunc')">编辑代码</n-button>
+		</n-form-item>
+		<n-form-item label="提交前执行函数">
+			<n-button type="info" dashed @click="editTheCode('beforeSubmit')">编辑代码</n-button>
+		</n-form-item>
+		<n-form-item label="提交后执行函数">
+			<n-button type="info" dashed @click="editTheCode('afterSubmit')">编辑代码</n-button>
 		</n-form-item>
 		<n-alert type="warning" style="margin-bottom: 10px">注意：此功能在设计状态时无效，可点击预览查看效果</n-alert>
 	</n-form>
@@ -90,11 +99,11 @@ const changeLabelPlacement = () => {
 };
 
 const codeOk = jsStr => {
-	data.value.customFunc = jsStr;
+	data.value[jsStr.type] = jsStr.code;
 };
 
-const editTheCode = () => {
-	codeEditingRef.value.show(data.value.customFunc);
+const editTheCode = type => {
+	codeEditingRef.value.show(data.value[type], type);
 };
 </script>
 

@@ -6,6 +6,7 @@
 			v-if="visible && formJson"
 			ref="formRenderRef"
 			:data="formJson.formJson"
+			@mounted="renderSuccess"
 		></form-render>
 		<div style="width: 100%; text-align: center">
 			<n-button @click="resetForm">重 置</n-button>
@@ -18,7 +19,7 @@
 import request from "@/utils/request/request";
 import FormRender from "@/component/form-render/index.vue";
 
-const emits = defineEmits(["submitSuccess", "submitError"]);
+const emits = defineEmits(["submitSuccess", "submitError", "mounted", "beforeSubmit"]);
 const message = useMessage();
 const props = defineProps({
 	baseUrl: {
@@ -58,9 +59,27 @@ const props = defineProps({
 	}
 });
 const formRenderRef = ref();
-const visible = ref(true);
+const visible = ref(false);
 const formJson = ref(undefined);
 const formValue = ref({});
+
+/**
+ * 执行自定义方法
+ * @returns {any}
+ */
+const executeustomFunc = () => {
+	return formRenderRef.value.executeustomFunc();
+};
+
+/**
+ * 表单渲染完成
+ */
+const renderSuccess = () => {
+	console.log("-------表单渲染完成-------");
+	// 调用自定义方法
+	const result = formRenderRef.value.mountedFunc();
+	emits("mounted", result);
+};
 
 /**
  * 重置表单
@@ -74,6 +93,10 @@ const resetForm = () => {
  */
 const submitData = () => {
 	formRenderRef.value.getWidgetFormData().then(result => {
+		// 调用表单提交前函数
+		const resultData = formRenderRef.value.beforeSubmit();
+		emits("beforeSubmit", resultData); // 抛出表单提交前方法
+		//
 		const formDataJson = JSON.stringify({ ...formJson.value, formJson: result.widgetForm });
 		request
 			.post({
@@ -92,17 +115,38 @@ const submitData = () => {
 					// eslint-disable-next-line no-underscore-dangle
 					formJson.value._id = res.result.formAllId;
 					formJson.value.formValId = res.result.formValId;
+					// 调用表单提交后函数
+					const data = formRenderRef.value.afterSubmit();
+					// 提交成功后回调方法
+					emits("submitSuccess", {
+						submitData: res.result,
+						funcData: data
+					}); // 抛出表单提交后方法
 				} else {
 					message.error("表单模板提交失败");
-					emits("submitError", res);
+					// 调用表单提交后函数
+					const data = formRenderRef.value.afterSubmit();
+					emits("submitError", {
+						submitData: res,
+						funcData: data
+					});
 				}
 			})
 			.catch(error => {
-				message.error("submitError", error);
+				message.error("表单模板提交失败");
+				// 调用表单提交后函数
+				const data = formRenderRef.value.afterSubmit();
+				emits("submitError", {
+					submitData: error,
+					funcData: data
+				});
 			});
 	});
 };
 
+/**
+ * 获取表单渲染数据
+ */
 const getFormJson = () => {
 	if (props.formValId && props.formAllId) {
 		request
@@ -161,6 +205,8 @@ const getFormJson = () => {
 watchEffect(() => {
 	getFormJson();
 });
+
+defineExpose({ executeustomFunc, resetForm, submitData });
 </script>
 
 <style scoped></style>

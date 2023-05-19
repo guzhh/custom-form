@@ -1,7 +1,7 @@
 <template>
 	<base-modal
 		style="width: 1000px"
-		title="代码编辑"
+		:title="'编辑代码（' + types[type] + '）'"
 		subBtuText="保存代码"
 		v-model:show="visible"
 		@close="handleClose"
@@ -58,6 +58,13 @@ import SvgIcon from "@/component/svg-icon/index.vue";
 
 defineOptions({ name: "codeEditing" });
 
+const types = {
+	customFunc: "自定义函数",
+	mountedFunc: "渲染前函数",
+	beforeSubmit: "表单提交前函数",
+	afterSubmit: "表单提交后函数"
+};
+const type = ref("");
 const emits = defineEmits(["ok"]);
 const isShowCode = ref(true);
 const visible = ref(false);
@@ -71,9 +78,10 @@ const windowChange = () => {
 	});
 };
 
-const show = code => {
+const show = (code, flag) => {
 	jsStr.value = code;
 	visible.value = true;
+	type.value = flag;
 };
 
 const handleClose = () => {
@@ -82,14 +90,14 @@ const handleClose = () => {
 };
 
 const handleOk = () => {
-	emits("ok", jsStr.value);
+	emits("ok", { code: jsStr.value, type: type.value });
 	handleClose();
 };
 
-const setTestEvent = type => {
-	console.log(type);
+const setTestEvent = flag => {
+	console.log(flag);
 	let code = "";
-	switch (type) {
+	switch (flag) {
 		case "dynamicDisabled":
 			code = "let widget = view.getWidget('字段标识')\nif (widget){\n  widget.options.disabled = !widget.options.disabled\n}";
 			break;
@@ -109,7 +117,7 @@ const setTestEvent = type => {
 			code = `let totalScore = view.getTheTotalScore()`;
 			break;
 		default:
-			console.log(type);
+			console.log(flag);
 	}
 	jsStr.value = code;
 };

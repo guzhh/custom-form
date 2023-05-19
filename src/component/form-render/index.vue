@@ -54,6 +54,7 @@
 import { naiveui } from "@/config";
 import GenerateFormItem from "./generateFormItem.vue";
 
+const emits = defineEmits(["mounted"]);
 const message = useMessage();
 const notification = useNotification();
 const props = defineProps({
@@ -154,6 +155,7 @@ watch(
 onMounted(() => {
 	generateModel(state.widgetForm?.list ?? []);
 	generateOptions(state.widgetForm?.list ?? []);
+	emits("mounted");
 });
 
 /**
@@ -285,7 +287,53 @@ const executeustomFunc = () => {
 	return customFn.call(this, state.model, state.widgetForm, message, notification);
 };
 
-defineExpose({ getData, reset, getWidgetFormData, calculateTheScore, executeustomFunc, handleValidateForm });
+/**
+ * 执行表单渲染成功函数
+ */
+const mountedFunc = () => {
+	console.log("执行表单渲染成功函数");
+	// 完善表单json
+	refineWidgetFormData();
+	// eslint-disable-next-line no-new-func
+	const customFn = new Function("form", "view", "message", "notification", state.widgetForm.config.mountedFunc);
+	return customFn.call(this, state.model, state.widgetForm, message, notification);
+};
+
+/**
+ * 表单提交前执行函数
+ */
+const beforeSubmit = () => {
+	console.log("表单提交前执行函数");
+	// 完善表单json
+	refineWidgetFormData();
+	// eslint-disable-next-line no-new-func
+	const customFn = new Function("form", "view", "message", "notification", state.widgetForm.config.beforeSubmit);
+	return customFn.call(this, state.model, state.widgetForm, message, notification);
+};
+
+/**
+ * 表单提交后执行函数
+ */
+const afterSubmit = () => {
+	console.log("表单提交后执行函数");
+	// 完善表单json
+	refineWidgetFormData();
+	// eslint-disable-next-line no-new-func
+	const customFn = new Function("form", "view", "message", "notification", state.widgetForm.config.afterSubmit);
+	return customFn.call(this, state.model, state.widgetForm, message, notification);
+};
+
+defineExpose({
+	getData,
+	reset,
+	getWidgetFormData,
+	calculateTheScore,
+	executeustomFunc,
+	handleValidateForm,
+	mountedFunc,
+	beforeSubmit,
+	afterSubmit
+});
 </script>
 
 <style scoped></style>

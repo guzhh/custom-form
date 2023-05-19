@@ -28,7 +28,10 @@ export const widgetForm = {
 		labelPlacement: "top", // 标签显示的位置 'left' | 'top'
 		showLabel: true, // 是否展示标签
 		requireMarkPlacement: "left", // 必填星号的位置
-		customFunc: "console.log(view)\nconsole.log(form)" // 表单设计者自定义的函数
+		customFunc: "console.log(view)\nconsole.log(form)", // 表单设计者自定义的函数
+		mountedFunc: "console.log(view)\nconsole.log(form)", // 表单渲染完成执行的函数
+		beforeSubmit: "console.log(view)\nconsole.log(form)", // 表单提交前执行的函数
+		afterSubmit: "console.log(view)\nconsole.log(form)" // 表单提交后执行的函数
 	},
 
 	/**
