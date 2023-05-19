@@ -30,8 +30,7 @@ const props = defineProps({
 	 * 表单模板ID
 	 */
 	tempId: {
-		type: String,
-		required: true
+		type: String
 	},
 	/**
 	 * 表单填写后保存全部数据的ID
@@ -67,7 +66,7 @@ const props = defineProps({
 const formRenderRef = ref();
 const visible = ref(false);
 const formJson = ref(undefined);
-const formValue = ref({});
+const formValue = ref({ ...props.value });
 
 /**
  * 执行自定义方法
@@ -133,7 +132,7 @@ const submitData = () => {
 					// 调用表单提交后函数
 					const data = formRenderRef.value.afterSubmit();
 					emits("submitError", {
-						submitData: res,
+						errorData: res,
 						funcData: data
 					});
 				}
@@ -143,7 +142,7 @@ const submitData = () => {
 				// 调用表单提交后函数
 				const data = formRenderRef.value.afterSubmit();
 				emits("submitError", {
-					submitData: error,
+					errorData: error,
 					funcData: data
 				});
 			});
@@ -168,7 +167,7 @@ const getFormJson = () => {
 				if (res.success) {
 					visible.value = false;
 					formJson.value = { ...res.result.formAllInfo };
-					formValue.value = { ...res.result.formValInfo };
+					formValue.value = { ...res.result.formValInfo, ...props.value };
 					nextTick(() => {
 						visible.value = true;
 					});
@@ -179,7 +178,7 @@ const getFormJson = () => {
 			.catch(() => {
 				message.error("表单数据获取失败");
 			});
-	} else {
+	} else if (props.tempId) {
 		request
 			.post({
 				url: `${props.baseUrl}/formTpl/getOne`,
@@ -204,6 +203,8 @@ const getFormJson = () => {
 			.catch(() => {
 				message.error("表单模板获取失败");
 			});
+	} else {
+		throw new Error("模板ID tempId 和 表单填写值ID formAllId 必须传递一个");
 	}
 };
 

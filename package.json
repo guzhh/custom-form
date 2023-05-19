@@ -1,6 +1,6 @@
 {
   "name": "@guzhh/custom-form",
-  "version": "0.0.1-alpha.11",
+  "version": "0.0.1-alpha.12",
   "description": "一个基于Vue、Naive UI、JavaScript的自定义表单渲染器",
   "files": [
     "dist",
