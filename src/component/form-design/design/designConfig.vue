@@ -36,6 +36,14 @@
 		<!--		当前使用组件{{ data.type }} <br />是否有该元素 {{ checkComponent(data.type) }}-->
 		<component v-if="checkComponent(data.type)" :is="componentsMap[data.type]" :select="data" />
 
+		<template v-if="hasKey('click') || hasKey('change') || hasKey('input')">
+			<h4>事件处理</h4>
+			<n-form-item label="change事件" v-if="hasKey('change')">
+				<n-button type="info" dashed @click="editEventCode('change')">编辑代码</n-button>
+			</n-form-item>
+			<n-alert type="warning" style="margin-bottom: 10px">注意：此功能在设计状态时无效，可点击预览查看效果</n-alert>
+		</template>
+
 		<template v-if="hasKey('rules')">
 			<h4>验证规则</h4>
 
@@ -62,6 +70,7 @@
 				<n-select v-model:value="data.options.rules.type" :options="verifyOptions"></n-select>
 			</n-form-item>
 		</template>
+		<code-editing ref="codeEditingRef" @ok="codeOk"></code-editing>
 	</n-form>
 </template>
 
@@ -84,6 +93,7 @@ import Divider from "../configs/Divider.vue";
 import Alert from "../configs/Alert.vue";
 import { checkComponent } from "../enums";
 import SvgIcon from "@/component/svg-icon/index.vue";
+import CodeEditing from "@/component/form-design/modal/codeEditing.vue";
 
 const emits = defineEmits(["update:select"]);
 
@@ -110,6 +120,7 @@ const componentsMap = {
 	alert: Alert
 };
 
+const codeEditingRef = ref();
 const data = ref(props.select);
 
 watch(
@@ -142,6 +153,18 @@ const verifyOptions = [
 
 // 判断表单元素是否需要某个配置字段
 const hasKey = key => Object.keys(data.value.options).includes(key);
+
+/**
+ * 编辑事件代码
+ * @param eventType
+ */
+const editEventCode = eventType => {
+	codeEditingRef.value.show(data.value.options[eventType], eventType);
+};
+
+const codeOk = jsStr => {
+	data.value.options[jsStr.type] = jsStr.code;
+};
 </script>
 
 <style lang="less" scoped>

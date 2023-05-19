@@ -1,7 +1,7 @@
 <template>
 	<base-modal
 		style="width: 1000px"
-		:title="'编辑代码（' + types[type] + '）'"
+		:title="'编辑代码（' + types[eventType] + '）'"
 		subBtuText="保存代码"
 		v-model:show="visible"
 		@close="handleClose"
@@ -21,13 +21,17 @@
 			</n-space>
 		</n-alert>
 		<div class="code-bord">
-			function {{ eventType }}(view,form,message,notification){
+			function {{ eventType }}(<span v-if="eventType === 'change' || eventType === 'click'">e,</span
+			>view,form,message,notification){
 			<n-tooltip trigger="hover">
 				<template #trigger>
 					<n-icon size="18">
 						<SvgIcon iconClass="question" style="margin-right: 10px" />
 					</n-icon>
 				</template>
+				<span v-if="eventType === 'change' || eventType === 'click'"
+					>e: naiveui组件的对应事件入参（如input传入的将是change后的value)<br
+				/></span>
 				view：视图组件信息（<a href="https://www.npmjs.com/package/@guzhh/custom-form" target="_blank" style="color: #2878fc"
 					>更多操作查看</a
 				>）<br />
@@ -62,14 +66,16 @@ const types = {
 	customFunc: "自定义函数",
 	mountedFunc: "渲染前函数",
 	beforeSubmit: "表单提交前函数",
-	afterSubmit: "表单提交后函数"
+	afterSubmit: "表单提交后函数",
+	change: "表单项change事件",
+	click: "表单项点击事件"
 };
-const type = ref("");
+
 const emits = defineEmits(["ok"]);
 const isShowCode = ref(true);
 const visible = ref(false);
 const jsStr = ref("");
-const eventType = ref("customFunc");
+const eventType = ref("");
 
 const windowChange = () => {
 	isShowCode.value = false;
@@ -81,7 +87,7 @@ const windowChange = () => {
 const show = (code, flag) => {
 	jsStr.value = code;
 	visible.value = true;
-	type.value = flag;
+	eventType.value = flag;
 };
 
 const handleClose = () => {
@@ -90,12 +96,11 @@ const handleClose = () => {
 };
 
 const handleOk = () => {
-	emits("ok", { code: jsStr.value, type: type.value });
+	emits("ok", { code: jsStr.value, type: eventType.value });
 	handleClose();
 };
 
 const setTestEvent = flag => {
-	console.log(flag);
 	let code = "";
 	switch (flag) {
 		case "dynamicDisabled":

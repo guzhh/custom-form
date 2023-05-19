@@ -262,6 +262,10 @@
 
 <script>
 import SvgIcon from "@/component/svg-icon/index.vue";
+import { naiveui } from "@/config";
+
+const message = useMessage();
+const notification = useNotification();
 
 export default {
 	name: "generateFormItem",
@@ -299,9 +303,33 @@ export default {
 		});
 
 		const handleFilterOption = (input, option) => option.label.toLowerCase().includes(input);
+
+		/**
+		 * 对change事件执行自定义方法
+		 * @param event
+		 * @returns {*}
+		 */
 		const handleChange = event => {
-			console.log("------------", event);
+			const widgetFormKey = "widgetForm";
+			const widgetForm = props[widgetFormKey];
+			// eslint-disable-next-line no-restricted-syntax
+			for (const key in naiveui.widgetForm) {
+				// eslint-disable-next-line no-prototype-builtins
+				if (naiveui.widgetForm.hasOwnProperty(key)) {
+					if (typeof naiveui.widgetForm[key] === "function") {
+						widgetForm[key] = naiveui.widgetForm[key];
+					}
+				}
+			}
+			// eslint-disable-next-line no-new-func
+			const customFn = new Function("form", "view", "message", "notification", "e", props.element.options.change);
+			return customFn.call(this, props.model, props.widgetForm, message, notification, event);
 		};
+
+		/**
+		 * 上传的change事件
+		 * @param fileList
+		 */
 		const handleUploadChange = ({ fileList }) => {
 			data.value = fileList;
 		};

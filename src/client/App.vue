@@ -9,8 +9,8 @@
 					@submit-error="submitError"
 					@submit-success="submitSuccess"
 					temp-id="1658722046437560320"
-					:form-all-id="'1659137580974997504'"
-					:form-val-id="'1659137602986704896'"
+					:form-all-id="'1659405163448266752'"
+					:form-val-id="'1659405163599261696'"
 					base-url="http://192.168.1.88:8600/panku-forms-server"
 				/>
 			</n-dialog-provider>

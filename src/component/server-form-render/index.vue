@@ -8,7 +8,7 @@
 			:data="formJson.formJson"
 			@mounted="renderSuccess"
 		></form-render>
-		<div style="width: 100%; text-align: center">
+		<div style="width: 100%; text-align: center" v-if="!customSubmit">
 			<n-button @click="resetForm">重 置</n-button>
 			<n-button type="primary" style="margin-left: 20px" @click="submitData">提 交</n-button>
 		</div>
@@ -55,6 +55,12 @@ const props = defineProps({
 	 * 禁用表单
 	 */
 	disabled: {
+		type: Boolean
+	},
+	/**
+	 * 是否自定义提交按钮
+	 */
+	customSubmit: {
 		type: Boolean
 	}
 });
