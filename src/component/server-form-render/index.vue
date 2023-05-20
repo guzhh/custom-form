@@ -32,22 +32,30 @@ const props = defineProps({
 	tempId: {
 		type: String
 	},
+
 	/**
-	 * 表单填写后保存全部数据的ID
+	 * 表单提交后返回的 表单填写后保存全部数据的ID：formAllId、表单填写后保存全部填写值的ID：formValId
+	 * 格式：{ formAllId: '', formValId: '' }
 	 */
-	formAllId: {
-		type: String
+	formData: {
+		type: Object
 	},
-	/**
-	 * 表单填写后保存全部填写值的ID
-	 */
-	formValId: {
-		type: String
-	},
+	// /**
+	//  * 表单填写后保存全部数据的ID
+	//  */
+	// formAllId: {
+	// 	type: String
+	// },
+	// /**
+	//  * 表单填写后保存全部填写值的ID
+	//  */
+	// formValId: {
+	// 	type: String
+	// },
 	/**
 	 * 自定义传入的值
 	 */
-	value: {
+	params: {
 		type: Object
 	},
 	/**
@@ -66,7 +74,7 @@ const props = defineProps({
 const formRenderRef = ref();
 const visible = ref(false);
 const formJson = ref(undefined);
-const formValue = ref({ ...props.value });
+const formValue = ref({ ...props.params });
 
 /**
  * 执行自定义方法
@@ -153,11 +161,11 @@ const submitData = () => {
  * 获取表单渲染数据
  */
 const getFormJson = () => {
-	if (props.formValId && props.formAllId) {
+	if (props.formData.formValId && props.formData.formAllId) {
 		request
 			.post({
 				url: `${props.baseUrl}/formValue/getFormInfo`,
-				data: { formAllId: props.formAllId, formValId: props.formValId },
+				data: { formAllId: props.formData.formAllId, formValId: props.formData.formValId },
 				customs: {
 					isLoading: true,
 					loadingText: "数据获取中..."
@@ -167,7 +175,7 @@ const getFormJson = () => {
 				if (res.success) {
 					visible.value = false;
 					formJson.value = { ...res.result.formAllInfo };
-					formValue.value = { ...res.result.formValInfo, ...props.value };
+					formValue.value = { ...res.result.formValInfo, ...props.params };
 					nextTick(() => {
 						visible.value = true;
 					});
@@ -204,7 +212,7 @@ const getFormJson = () => {
 				message.error("表单模板获取失败");
 			});
 	} else {
-		throw new Error("模板ID tempId 和 表单填写值ID formAllId 必须传递一个");
+		throw new Error("模板ID tempId 和 表单填写值ID formData 必须传递一个， formData格式为：{ formAllId: '', formValId: '' }");
 	}
 };
 

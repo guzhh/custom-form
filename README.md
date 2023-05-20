@@ -8,16 +8,36 @@
 > 当前仓库主要是借鉴和~~抄~~（学）了 `LvHuaiSheng` 大佬的 [naiveui-form-generate](https://gitee.com/sourcenet/naiveui-form-generate)，在此特别提出感谢
 
 > 当前仓库主要包含两个组件，分别为表单设计器、表单渲染器
-> 
+>
 > 表单设计器 form-design
-> 
+>
 > 表单渲染器 form-render
+>
+> 结合服务端的表单渲染器 server-form-render
+
+### 快速使用
+
+#### 安装依赖
+
+```shell
+# npm
+npm init vue@latest axios naive-ui vuedraggable@next @guzhh/custom-form --save
+ 
+# yarn
+yarn add vue@latest axios naive-ui vuedraggable@next @guzhh/custom-form
+
+# pnpm
+pnpm install vue@latest axios naive-ui vuedraggable@next @guzhh/custom-form
+```
+
+
 
 ### 表单设计器 `form-design`
+
 #### 属性
 | 名称             | 类型        | 默认值 | 说明                                              |
 |----------------|-----------|-----|-------------------------------------------------|
-| widgetFormJson | String    | 见下方 | 需要传递符合规范的的数据，最好时表单设计器自己生成的数据，其他自定义数据可能导致表单设计器报错 |
+| widgetFormJson | String    | 见下方 | 需要传递符合规范的的数据，最好是表单设计器自己生成的数据，其他自定义数据可能导致表单设计器报错 |
 | saveText       | string    |   生成JSON  | 保存表单设计按钮的文字                                     |
 | on-ok          | ()=> void |     | 点击保存按钮触发的事件                                     |
 
@@ -152,9 +172,8 @@ export const widgetForm = {
 | ------------ | ------- | ------ | ------------------------------------------------------------ |
 | baseUrl      | String  | 无     | 表单对接后台请求的服务跟地址                                 |
 | tempId       | String  | 无     | 在盘古通用表单服务中设计保存的模板ID                         |
-| formAllId    | String  | 无     | 填写表单完成提交后接口返回的表单全部信息ID                   |
-| formValId    | String  | 无     | 写表单完成提交后接口返回的表单值信息ID                       |
-| value        | Object  | 无     | 要传递给表单设计器的值，注意：通过value传递的值需要在设计表单时定义一个相同key的表单项，否则可能导致在最后存储表单填写数据时无法拿到传递的值。同时在编辑表单时传递value则可能会导致表单原来填写的相同key的值被 |
+| formData     | String  | 无     | 表单提交后返回的 表单填写后保存全部数据的ID：formAllId、表单填写后保存全部填写值的ID：formValId <br />格式：{ formAllId: '', formValId: '' } |
+| params       | Object  | 无     | 要传递给表单设计器的值，注意：通过value传递的值需要在设计表单时定义一个相同key的表单项，否则可能导致在最后存储表单填写数据时无法拿到传递的值。同时在编辑表单时传递value则可能会导致表单原来填写的相同key的值被覆盖<br /><br />使用场景：例如当设计的表单中有姓名（name）字段时，不想让用户进行手动填写，直接用数据库中的值进行填充值进行填充则传递 :params="{name:'张三'}" |
 | disabled     | Boobean | false  | 是否禁用表单                                                 |
 | customSubmit | Boobean | false  | 是否自定义提交按钮                                           |
 
@@ -165,7 +184,7 @@ export const widgetForm = {
 | mounted       | (event) => void                  | 表单渲染完成执行调用的钩子函数<br />event：执行 *表单提交前函数* 返回的值 |      |
 | beforeSubmit  | （event）=> void                 | 点击表单提交按后，调用验证表单成功后，调用表单提交接口前，调用的钩子函数<br />event：执行 *渲染成功执行函数* 返回的值 |      |
 | submitSuccess | ({submitData, funcData}) => void | 表单提交成功后调用的钩子函数<br />submitData： 表单提交返回的结果，一般为 formAllId 和 formValId<br />funcData：调用 *表单提交后函数* 返回的值 |      |
-| submitSuccess | ({errorData,funcData}) => void   | 表单提交失败调用的钩子函数<br />errorData：提交失败返回的错误信息<br />funcData：调用 *表单提交后函数* 返回的值 |      |
+| submitError | ({errorData,funcData}) => void   | 表单提交失败调用的钩子函数<br />errorData：提交失败返回的错误信息<br />funcData：调用 *表单提交后函数* 返回的值 |      |
 
 #### 方法
 
@@ -185,8 +204,7 @@ export const widgetForm = {
     @submit-error="submitError"
     @submit-success="submitSuccess"
     temp-id="1658722046437560320"
-    :form-all-id="'1659405163448266752'"
-    :form-val-id="'1659405163599261696'"
+    :formData="{ formAllId: '1659405163448266752', formValId: '1659405163599261696' }"
     base-url="http://192.168.1.88:8600/panku-forms-server"
 />
 </template>
