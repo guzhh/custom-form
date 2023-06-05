@@ -8,10 +8,10 @@
 					@mounted="renderMounted"
 					@submit-error="submitError"
 					@submit-success="submitSuccess"
-					temp-id="1658722046437560320"
+					temp-id="1665632943815626752"
 					:form-all-id="'1659405163448266752'"
 					:form-val-id="'1659405163599261696'"
-					base-url="http://192.168.1.88:8600/panku-forms-server"
+					base-url="http://192.168.1.228:8600/panku-forms-server"
 				/>
 			</n-dialog-provider>
 		</n-message-provider>

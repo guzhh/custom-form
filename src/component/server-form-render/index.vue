@@ -161,7 +161,7 @@ const submitData = () => {
  * 获取表单渲染数据
  */
 const getFormJson = () => {
-	if (props.formData.formValId && props.formData.formAllId) {
+	if (props?.formData?.formValId && props?.formData?.formAllId) {
 		request
 			.post({
 				url: `${props.baseUrl}/formValue/getFormInfo`,

@@ -176,7 +176,8 @@ const handleValidateForm = () => {
 			if (errors) {
 				resolve();
 			} else {
-				reject(errors);
+				console.error(errors);
+				reject(new Error(errors));
 			}
 		});
 	});
@@ -193,6 +194,7 @@ const getData = () => {
 				if (!errors) {
 					resolve(state.model);
 				} else {
+					console.error(errors);
 					reject(new Error("验证失败"));
 				}
 			})
@@ -266,7 +268,8 @@ const getWidgetFormData = () => {
 						widgetForm: state.widgetForm
 					});
 				} else {
-					reject(new Error("验证失败"));
+					console.error("表单验证错误", errors);
+					reject(new Error(errors));
 				}
 			})
 			.catch(error => {

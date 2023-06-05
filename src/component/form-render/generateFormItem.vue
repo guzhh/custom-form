@@ -108,7 +108,7 @@
 		<template v-if="element.type === 'date'">
 			<n-date-picker
 				:size="config.size"
-				v-model:value="data"
+				v-model:formatted-value="data"
 				:placeholder="element.options.placeholder"
 				:inputReadOnly="element.options.readonly"
 				:clearable="element.options.allowClear"
@@ -116,7 +116,7 @@
 				:type="element.options.type"
 				:disabled="disabled || element.options.disabled"
 				:style="{ width: element.options.width }"
-				@update:value="handleChange"
+				@update:formatted-value="handleChange"
 			/>
 		</template>
 
@@ -323,7 +323,7 @@ export default {
 			}
 			// eslint-disable-next-line no-new-func
 			const customFn = new Function("form", "view", "message", "notification", "e", props.element.options.change);
-			return customFn.call(this, props.model, props.widgetForm, message, notification, event);
+			customFn.call(this, props.model, props.widgetForm, message, notification, event);
 		};
 
 		/**
