@@ -96,9 +96,9 @@ const state = reactive({
 const setJson = json => {
 	state.widgetForm.list = [];
 	merge(state.widgetForm, json);
-	if (json.list.length) {
+	if (json.list.length >= 0) {
 		// eslint-disable-next-line prefer-destructuring
-		state.widgetFormSelect = json.list[0];
+		state.widgetFormSelect = state.widgetForm.list[0];
 	}
 };
 
