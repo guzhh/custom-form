@@ -5,7 +5,11 @@
 			<n-radio-button value="buttonGroup">按钮组</n-radio-button>
 		</n-radio-group>
 	</n-form-item>
-	<n-form-item label="选项">
+	<n-form-item>
+		<template #label>
+			<span>选项</span>
+			<n-button type="primary" text style="margin-left: 10px" @click="data.options.defaultValue = null">取消默认值</n-button>
+		</template>
 		<div>
 			<!--			<n-radio-group button-style="solid" v-model:value="data.options.remote">-->
 			<!--				<n-radio-button :value="false">静态数据</n-radio-button>-->

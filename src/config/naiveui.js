@@ -171,7 +171,7 @@ export const basicComponents = [
 			showLabel: true,
 			click: "",
 			width: "",
-			defaultValue: "",
+			defaultValue: null,
 			groupType: "radioGroup",
 			remote: false,
 			remoteFunc: "https://raw.githubusercontent.com/fuchengwei/vue-form-create/master/mock/mock.json",

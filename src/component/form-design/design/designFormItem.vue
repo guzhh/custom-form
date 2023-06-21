@@ -124,6 +124,7 @@
 
 			<template v-if="element.type === 'select'">
 				<n-select
+					clearable
 					:size="config.size"
 					v-model:value="element.options.defaultValue"
 					:placeholder="element.options.placeholder"

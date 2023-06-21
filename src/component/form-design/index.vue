@@ -37,7 +37,7 @@
 			style="margin-left: 5px; width: 500px; flex-shrink: 0"
 			:style="{ height: `100%` }"
 		>
-			<n-tabs type="line" :tabs-padding="20" pane-style="padding: 20px;" default-value="form">
+			<n-tabs type="line" :tabs-padding="20" pane-style="padding: 20px;" default-value="widget">
 				<n-tab-pane name="widget" tab="字段属性">
 					<DesignConfig v-model:select="state.widgetFormSelect" />
 				</n-tab-pane>

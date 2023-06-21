@@ -1,6 +1,7 @@
 <template>
 	<n-form-item label="默认值">
 		<n-rate
+			clearable
 			v-model:value="data.options.defaultValue"
 			:count="data.options.max"
 			:allowHalf="data.options.allowHalf"
