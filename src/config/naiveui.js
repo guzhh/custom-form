@@ -177,18 +177,24 @@ export const basicComponents = [
 			remoteFunc: "https://raw.githubusercontent.com/fuchengwei/vue-form-create/master/mock/mock.json",
 			options: [
 				{
-					value: "Option 1",
+					value: "1",
 					label: "Option 1",
+					dictVal: null,
+					dictName: null,
 					score: 0
 				},
 				{
-					value: "Option 2",
+					value: "2",
 					label: "Option 2",
+					dictVal: null,
+					dictName: null,
 					score: 0
 				},
 				{
-					value: "Option 3",
+					value: "3",
 					label: "Option 3",
+					dictVal: null,
+					dictName: null,
 					score: 0
 				}
 			],
@@ -311,17 +317,23 @@ export const basicComponents = [
 			options: [
 				{
 					label: "选项 1",
-					value: "选项 1",
+					value: "1",
+					dictVal: null,
+					dictName: null,
 					score: 0
 				},
 				{
 					label: "选项 2",
-					value: "选项 2",
+					value: "2",
+					dictVal: null,
+					dictName: null,
 					score: 0
 				},
 				{
 					label: "选项 3",
-					value: "选项 3",
+					value: "3",
+					dictVal: null,
+					dictName: null,
 					score: 0
 				}
 			],

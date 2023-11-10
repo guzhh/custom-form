@@ -105,55 +105,57 @@ const resetForm = () => {
  * 提交表单，获取表单全部数据
  */
 const submitData = () => {
-	formRenderRef.value.getWidgetFormData().then(result => {
+	formRenderRef.value.getWidgetFormData().then(() => {
 		// 调用表单提交前函数
 		const resultData = formRenderRef.value.beforeSubmit();
-		emits("beforeSubmit", resultData); // 抛出表单提交前方法
-		//
-		const formDataJson = JSON.stringify({ ...formJson.value, formJson: result.widgetForm });
-		request
-			.post({
-				url: `${props.baseUrl}/formValue/saveOrUpt`,
-				data: {
-					formAll: formDataJson,
-					formValues: JSON.stringify({ ...result.model, _id: formJson.value.formValId })
-				},
-				customs: {
-					isLoading: true,
-					loadingText: "数据提交中..."
-				}
-			})
-			.then(res => {
-				if (res.success) {
-					// eslint-disable-next-line no-underscore-dangle
-					formJson.value._id = res.result.formAllId;
-					formJson.value.formValId = res.result.formValId;
-					// 调用表单提交后函数
-					const data = formRenderRef.value.afterSubmit();
-					// 提交成功后回调方法
-					emits("submitSuccess", {
-						submitData: res.result,
-						funcData: data
-					}); // 抛出表单提交后方法
-				} else {
+		formRenderRef.value.getWidgetFormData().then(result => {
+			emits("beforeSubmit", resultData); // 抛出表单提交前方法
+			//
+			const formDataJson = JSON.stringify({ ...formJson.value, formJson: result.widgetForm });
+			request
+				.post({
+					url: `${props.baseUrl}/formValue/saveOrUpt`,
+					data: {
+						formAll: formDataJson,
+						formValues: JSON.stringify({ ...result.model, _id: formJson.value.formValId })
+					},
+					customs: {
+						isLoading: true,
+						loadingText: "数据提交中..."
+					}
+				})
+				.then(res => {
+					if (res.success) {
+						// eslint-disable-next-line no-underscore-dangle
+						formJson.value._id = res.result.formAllId;
+						formJson.value.formValId = res.result.formValId;
+						// 调用表单提交后函数
+						const data = formRenderRef.value.afterSubmit();
+						// 提交成功后回调方法
+						emits("submitSuccess", {
+							submitData: res.result,
+							funcData: data
+						}); // 抛出表单提交后方法
+					} else {
+						message.error("表单模板提交失败");
+						// 调用表单提交后函数
+						const data = formRenderRef.value.afterSubmit();
+						emits("submitError", {
+							errorData: res,
+							funcData: data
+						});
+					}
+				})
+				.catch(error => {
 					message.error("表单模板提交失败");
 					// 调用表单提交后函数
 					const data = formRenderRef.value.afterSubmit();
 					emits("submitError", {
-						errorData: res,
+						errorData: error,
 						funcData: data
 					});
-				}
-			})
-			.catch(error => {
-				message.error("表单模板提交失败");
-				// 调用表单提交后函数
-				const data = formRenderRef.value.afterSubmit();
-				emits("submitError", {
-					errorData: error,
-					funcData: data
 				});
-			});
+		});
 	});
 };
 

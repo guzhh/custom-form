@@ -33,8 +33,8 @@
 						<template #default="{ value }">
 							<div style="display: flex; align-items: center; width: 100%">
 								<n-checkbox :value="value.value" style="margin-right: 5px" />
-								<n-input v-model:value="value.label" type="text" style="margin-right: 12px; width: 160px" />
-								<n-input v-model:value="value.value" type="text" />
+								<n-input v-model:value="value.label" type="text" style="margin-right: 12px; width: 160px" placeholder="选项名" />
+								<n-input v-model:value="value.value" type="text" placeholder="选项值" />
 							</div>
 						</template>
 					</n-dynamic-input>

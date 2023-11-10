@@ -27,12 +27,12 @@
 					<n-gi v-for="(col, colIndex) of element.columns" :key="colIndex" :span="col.span ?? 0">
 						<GenerateFormItem
 							v-for="colItem of col.list"
+							:widgetForm="state.widgetForm"
 							:model="state.model"
 							:key="colItem.key"
 							:element="colItem"
 							:config="data.config"
 							:disabled="disabled"
-							:widgetForm="state.widgetForm"
 						/>
 					</n-gi>
 				</n-grid>
@@ -218,7 +218,7 @@ const setWidgetFormData = list => {
 		// 判断是否是否是栅格组件
 		if (list[index].type === "grid") {
 			// 如果是则递归调用
-			list[index].columns.forEach(col => generateModel(col.list));
+			list[index].columns.forEach(col => setWidgetFormData(col.list));
 		} else {
 			// eslint-disable-next-line no-param-reassign
 			list[index].options.defaultValue = state.model[model];

@@ -35,11 +35,17 @@
 				<n-radio-group v-model:value="data.options.defaultValue" style="margin-top: 10px">
 					<n-dynamic-input v-model:value="data.options.options" :on-create="handleInsertOption" show-sort-button>
 						<template #default="{ value }">
-							<div style="display: flex; align-items: center; width: 100%">
-								<n-radio :value="value.value" style="margin-right: 5px" />
-								<n-input v-model:value="value.label" type="text" style="width: 100px" placeholder="选项名" />
-								<n-input v-model:value="value.value" type="text" placeholder="选项值" style="width: 100px" />
-								<n-input-number v-model:value="value.score" placeholder="选项分值" style="width: 100px" min="0" :precision="0" />
+							<div>
+								<div style="display: flex; align-items: center; width: 100%">
+									<n-radio :value="value.value" style="margin-right: 5px" />
+									<n-input v-model:value="value.label" type="text" placeholder="选项名" />
+									<n-input placeholder="选项值" v-model:value="value.value" type="text" />
+									<n-input-number v-model:value="value.score" placeholder="选项分值" min="0" :precision="0" />
+								</div>
+								<div style="display: flex; align-items: center; width: 100%; margin-top: 10px">
+									<n-input v-model:value="value.dictVal" placeholder="字典值" type="text" />
+									<n-input v-model:value="value.dictName" type="text" placeholder="字典名" style="margin-left: 10px" />
+								</div>
 							</div>
 						</template>
 					</n-dynamic-input>
@@ -77,8 +83,10 @@ watch(data, val => emits("update:select", val));
 const handleInsertOption = () => {
 	const length = data.value.options.options.length + 1;
 	return {
-		label: `选项 ${length}`,
-		value: `选项 ${length}`,
+		label: null,
+		value: `${length}`,
+		dictVal: null,
+		dictName: null,
 		score: 0
 	};
 };

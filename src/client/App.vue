@@ -2,15 +2,15 @@
 	<n-notification-provider>
 		<n-message-provider>
 			<n-dialog-provider>
-				<form-design />
+				<!--				<form-design />-->
 				<server-form-render
 					@beforeSubmit="beforeSubmit"
 					@mounted="renderMounted"
 					@submit-error="submitError"
 					@submit-success="submitSuccess"
-					temp-id="1665632943815626752"
-					:form-all-id="'1659405163448266752'"
-					:form-val-id="'1659405163599261696'"
+					temp-id="1673977467273543680"
+					:form-all-id="'1696460037005312000'"
+					:form-val-id="'1696460512622608384'"
 					base-url="http://192.168.1.228:8600/panku-forms-server"
 				/>
 			</n-dialog-provider>

@@ -295,8 +295,11 @@ export default {
 	setup(props) {
 		const data = computed({
 			// get: () => 1,
-			get: () => props.model[props.element.model],
+			get: () => {
+				return props.model[props.element.model];
+			},
 			set: val => {
+				console.log("------", val);
 				// eslint-disable-next-line vue/no-mutating-props,no-param-reassign
 				props.model[props.element.model] = val;
 			}
