@@ -24,10 +24,10 @@
 			</n-tooltip>
 		</template>
 		<div>
-			<!--			<n-radio-group button-style="solid" v-model:value="data.options.remote">-->
-			<!--				<n-radio-button :value="false">静态数据</n-radio-button>-->
-			<!--				<n-radio-button :value="true">远端数据</n-radio-button>-->
-			<!--			</n-radio-group>-->
+			<n-radio-group button-style="solid" v-model:value="data.options.remote">
+				<n-radio-button :value="false">静态数据</n-radio-button>
+				<n-radio-button :value="true">远端数据</n-radio-button>
+			</n-radio-group>
 			<n-space v-if="data.options.remote" direction="vertical" style="margin-top: 10px">
 				<n-input-group>
 					<n-input-group-label>远端方法</n-input-group-label>

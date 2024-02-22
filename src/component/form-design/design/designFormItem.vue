@@ -56,7 +56,7 @@
 			<!--  单选框  -->
 			<template v-if="element.type === 'radio'">
 				<n-radio-group v-model:value="element.options.defaultValue" :size="config.size" :disabled="element.options.disabled">
-					<n-space v-if="element.options.groupType === 'radioGroup'">
+					<n-space v-if="element.options.groupType === 'radioGroup'" :vertical="element.options.vertical">
 						<n-radio v-for="item of element.options.options" :key="item.value" :value="item.value">
 							{{ element.options.showLabel ? item.label : item.value }}
 						</n-radio>

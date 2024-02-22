@@ -5,6 +5,12 @@
 			<n-radio-button value="buttonGroup">按钮组</n-radio-button>
 		</n-radio-group>
 	</n-form-item>
+	<n-form-item label="排列方向" v-if="data.options.groupType === 'radioGroup'">
+		<n-radio-group button-style="solid" v-model:value="data.options.vertical">
+			<n-radio-button :value="false">水平方向</n-radio-button>
+			<n-radio-button :value="true">垂直方向</n-radio-button>
+		</n-radio-group>
+	</n-form-item>
 	<n-form-item>
 		<template #label>
 			<span>选项</span>

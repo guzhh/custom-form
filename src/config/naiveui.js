@@ -21,7 +21,8 @@ export const widgetForm = {
 	config: {
 		size: "medium", // 表单尺寸 'small' | 'medium' | 'large'
 		hideRequiredMark: false, // 是否展示必填的星号
-		groupType: "radioGroup",
+		groupType: "radioGroup", // 单选框组的类型 'radioGroup' | 'buttonGroup'
+		vertical: false, // 是否垂直排列
 		inline: false, // 	是否展示为行内表单
 		labelAlign: "left", // 标签的文本对齐方式 'left' | 'right'
 		labelWidth: "auto", // 标签的宽度
@@ -172,7 +173,8 @@ export const basicComponents = [
 			click: "",
 			width: "",
 			defaultValue: null,
-			groupType: "radioGroup",
+			groupType: "radioGroup", // 单选框组的类型 'radioGroup' | 'buttonGroup'
+			vertical: false, // 是否垂直排列
 			remote: false,
 			remoteFunc: "https://raw.githubusercontent.com/fuchengwei/vue-form-create/master/mock/mock.json",
 			options: [

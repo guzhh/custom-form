@@ -62,7 +62,7 @@
 				:disabled="disabled || element.options.disabled"
 				@update:value="handleChange"
 			>
-				<n-space v-if="element.options.groupType === 'radioGroup'">
+				<n-space v-if="element.options.groupType === 'radioGroup'" :vertical="element.options.vertical">
 					<n-radio v-for="item of element.options.options" :key="item.value" :value="item.value">
 						{{ element.options.showLabel ? item.label : item.value }}
 					</n-radio>
